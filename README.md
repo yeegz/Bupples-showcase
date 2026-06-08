@@ -7,7 +7,7 @@
 **Split costs with friends — minus the awkward.**
 
 [![Flutter](https://img.shields.io/badge/Flutter-Dart-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
-[![Firebase](https://img.shields.io/badge/Firebase-Firestore%20%C2%B7%20Auth%20%C2%B7%20App%20Check-FFCA28?logo=firebase&logoColor=black)](https://firebase.google.com)
+[![Firebase](https://img.shields.io/badge/Firebase-Firestore%20%C2%B7%20Auth%20%C2%B7%20Functions%20%C2%B7%20FCM%20%C2%B7%20Storage%20%C2%B7%20App%20Check-FFCA28?logo=firebase&logoColor=black)](https://firebase.google.com)
 [![Riverpod](https://img.shields.io/badge/State-Riverpod-4B6BFB)](https://riverpod.dev)
 [![Platforms](https://img.shields.io/badge/iOS%20%C2%B7%20Android%20%C2%B7%20Web-grey)]()
 [![License](https://img.shields.io/badge/License-Proprietary-FF6A1A)](LICENSE)
@@ -22,9 +22,9 @@
 
 Splitting a group bill is a social tax: spreadsheets, screenshots, and chasing
 friends for "the $14 you owe me." **Bupples** turns *who-owes-what* on any
-hangout into a few taps — start a session, share a code, drop expenses, and it
-computes the **fewest payments** to settle everyone up. Built mobile-first for a
-Gen-Z audience, with a living, physics-driven UI.
+hangout into a few taps — start a session, share a code (or a scannable QR),
+drop expenses, and it computes the **fewest payments** to settle everyone up.
+Built mobile-first for a Gen-Z audience, with a living, physics-driven UI.
 
 ## Screenshots
 
@@ -46,18 +46,29 @@ _Demo walkthrough:_ <!-- drop a demo.gif or a YouTube/Loom link here -->
   sized by their balance. The cluster is *interactive*: bubbles bounce off UI
   cards and float up out of the way when a sheet opens.
 - 🧾 **Flexible expenses** — split **equally / by exact amounts / by percentage /
-  by shares**, with a **60-second undo** window plus full edit & delete (with a
-  change trail).
+  by shares**, add **tax & service charge**, with a **60-second undo** window
+  plus full edit & delete (with a change trail).
 - 🤝 **Smart settle-up** — minimal **"who-pays-whom" debt simplification**
-  (≤ N−1 transfers), via a request → confirm → undo flow.
-- 👥 **Sessions** — join by short code; configurable wrap-up (**host decides** or
-  **unanimous vote**); lock-on-close, host delete, leave; per-session currency
-  (+ custom) and budgets.
-- 🔐 **Accounts** — silent anonymous by default; **Continue with Google** links
-  your data so it backs up and follows you across devices; local persistence so
-  nothing resets.
+  (≤ N−1 transfers), via a request → confirm → undo flow, with optional
+  **receipt-photo proof** attached to each transfer.
+- 🔔 **Push notifications** — real-time alerts when someone adds an expense,
+  requests a settle-up, or joins your session (Firebase Cloud Messaging, driven
+  by Firestore-triggered Cloud Functions).
+- 👥 **Sessions** — join by short code or **scannable QR**; configurable wrap-up
+  (**host decides** or **unanimous vote**); per-session currency (+ custom) and
+  budgets; **mid-session rule changes**; lock-on-close.
+- 👑 **Host controls** — a crowned owner with **transferable ownership**, plus
+  **kick / ban** and member moderation.
+- 🔐 **Accounts** — silent anonymous by default; **Continue with Google** *or*
+  **Sign in with Apple** links your data so it backs up and follows you across
+  devices; one-tap **account deletion** (with Apple token revocation); local
+  persistence so nothing resets.
+- 🛡️ **Trust & safety** — **report** user-generated content (receipts) for
+  moderation, and a terms/abuse policy — built to App Store UGC guidelines.
 - 📊 **Per-member records** — tap a bubble for a breakdown of what they paid vs.
   owe and their full expense history.
+- ♿ **Accessibility & polish** — haptics, reduce-motion support, and a bundled
+  type system for offline-safe, flash-free first frames.
 
 ## Tech stack
 
@@ -65,14 +76,17 @@ _Demo walkthrough:_ <!-- drop a demo.gif or a YouTube/Loom link here -->
 |-------|---------|
 | **App** | Flutter · Dart (iOS · Android · Web) |
 | **State** | Riverpod (StreamProvider / Provider.family + a controller) |
-| **Backend** | Firebase — Cloud Firestore (real-time sync), Auth (Anonymous + Google), **App Check** |
-| **iOS** | Swift Package Manager (no CocoaPods) |
+| **Backend** | Firebase — Cloud Firestore (real-time sync), Auth (Anonymous · Google · Apple), **Cloud Functions** (push triggers, account deletion, Apple token revocation), **Cloud Messaging** (push), **Cloud Storage** (receipts), **App Check**, Analytics |
+| **Functions** | Node.js · TypeScript (Firebase Cloud Functions v2) |
+| **iOS** | Swift Package Manager (no CocoaPods); UIScene lifecycle |
 | **Design** | Custom liquid-glass design system, a hand-rolled soft-body bubble simulation |
 
 ## Architecture
 
 Feature-first and layered — UI depends only on repository **interfaces**, so the
-in-memory backend and Firestore are interchangeable.
+in-memory backend and Firestore are interchangeable. A serverless backend
+(Cloud Functions) handles everything that must be trusted or fan-out: push
+notifications, recursive account deletion, and Apple token revocation.
 
 ```mermaid
 flowchart TD
@@ -82,22 +96,26 @@ flowchart TD
     DATA["Data — repository interface"]
     MEM["In-memory repo"]
     FS["Firestore repo (real-time)"]
+    FN["Cloud Functions — push · deletion · Apple revoke"]
+    FCM["FCM push → devices"]
     UI --> APP --> DOM
     APP --> DATA
     DATA --> MEM
     DATA --> FS
+    FS -- "triggers" --> FN --> FCM
 ```
 
 ```
 lib/
   app/theme/     design tokens + Material theme
-  core/          palette, cent-safe money, shared widgets
+  core/          palette, cent-safe money, deep links, services, shared widgets
   features/
-    session/     sessions, expenses, members
-    settlement/  debt-simplification ledger
+    session/     sessions, expenses, members, settlement, receipts
     bubbles/     soft-body bubble simulation + render
-    auth/        Google / anonymous sign-in
+    auth/        Google / Apple / anonymous sign-in
+    settings/    profile, preferences, account deletion
     onboarding/  tutorial + sign-in gate
+functions/       Cloud Functions (TypeScript): notify, deleteAccount, apple
 ```
 
 ## Engineering highlights
@@ -108,6 +126,15 @@ lib/
 - **Soft-body bubble physics** — a custom simulation (cohesion + pairwise
   repulsion + idle drift + UI-obstacle collisions) drives a 60fps, draggable,
   reactive cluster, with a ticker that sleeps when idle/backgrounded.
+- **Serverless push pipeline** — Firestore-triggered Cloud Functions fan out FCM
+  notifications to a session's members, with per-device token management that
+  re-binds on account switch and prunes stale tokens.
+- **Cross-platform receipts** — transfer-proof images upload to Cloud Storage via
+  a `dart:io`-free path (so it works on web too), gated by Security Rules and
+  backed by UGC reporting/moderation.
+- **App Store compliance** — Sign in with Apple alongside Google, server-side
+  Apple **token revocation** on account deletion, and a recursive privileged
+  data purge (Guideline 5.1.1(v)).
 - **Security** — authorization is bound to the Firebase **auth uid** (not
   client-supplied ids): membership-scoped Firestore rules (no enumeration,
   members-only writes, host-only delete, server-validated amounts) + **App
@@ -117,8 +144,9 @@ lib/
 
 ## Status
 
-In active development; running on iOS, Android, and Web. The full source lives in
-a private repository — **happy to share read access on request.**
+Preparing for **App Store** submission; running on iOS, Android, and Web. The
+full source lives in a private repository — **happy to share read access on
+request.**
 
 ---
 
