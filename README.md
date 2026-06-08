@@ -28,11 +28,14 @@ Built mobile-first for a Gen-Z audience, with a living, physics-driven UI.
 
 ## Screenshots
 
-> _Drop your screenshots into `screenshots/` and they'll render here._
+| Bubble field | Add expense | Settle up | Invite (QR) |
+|:---:|:---:|:---:|:---:|
+| ![Bubble field](screenshots/session.jpg) | ![Add expense](screenshots/add-expense.jpg) | ![Settle up](screenshots/settle.jpg) | ![Invite](screenshots/invite.jpg) |
 
-| Home | Session | Add expense | Settle up |
-|------|---------|-------------|-----------|
-| ![Home](screenshots/home.png) | ![Session](screenshots/session.png) | ![Add expense](screenshots/add-expense.png) | ![Settle](screenshots/settle.png) |
+> The home view is the **live bubble field** — members as physics-driven bubbles
+> sized by balance, the host crowned. Add expenses with categories + tax/service,
+> let Bupples compute the **fewest payments** to settle, and invite friends by
+> **QR or code**.
 
 <div align="center">
 
@@ -89,20 +92,33 @@ in-memory backend and Firestore are interchangeable. A serverless backend
 notifications, recursive account deletion, and Apple token revocation.
 
 ```mermaid
-flowchart TD
-    UI["Presentation — screens, bubble field, design system"]
-    APP["Application — Riverpod providers + controller"]
-    DOM["Domain — immutable models + money math (cent-safe)"]
-    DATA["Data — repository interface"]
-    MEM["In-memory repo"]
-    FS["Firestore repo (real-time)"]
-    FN["Cloud Functions — push · deletion · Apple revoke"]
-    FCM["FCM push → devices"]
-    UI --> APP --> DOM
-    APP --> DATA
-    DATA --> MEM
-    DATA --> FS
-    FS -- "triggers" --> FN --> FCM
+flowchart TB
+    subgraph Client["📱 Flutter — iOS · Android · Web"]
+        UI["Presentation · bubble field · glass design system"]
+        APP["Application · Riverpod providers + session controller"]
+        DOM["Domain · immutable models · cent-safe money math"]
+        DATA["Data · repository interface"]
+        UI --> APP --> DOM
+        APP --> DATA
+        DATA --> MEM["In-memory repo · zero-setup demo"]
+        DATA --> FSR["Firestore repo · real-time"]
+    end
+    subgraph FB["☁️ Firebase"]
+        FS[("Cloud Firestore")]
+        AUTH["Auth · Anonymous / Google / Apple"]
+        STG[("Cloud Storage · receipts")]
+        AC["App Check"]
+        FCM(["Cloud Messaging"])
+        subgraph FN["Cloud Functions · TypeScript"]
+            NOTIFY["expense / request / join triggers"]
+            ADMIN["deleteAccount · Apple revoke"]
+        end
+    end
+    FSR <-->|"snapshots() · offline queue"| FS
+    UI -.->|"sign in"| AUTH
+    UI -.->|"upload receipt"| STG
+    APP -.->|"attest"| AC
+    FS -->|"document triggers"| NOTIFY --> FCM -->|"push"| UI
 ```
 
 ```
