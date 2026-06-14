@@ -30,7 +30,10 @@ And for a one-off bill, **Turbo** turns it item-by-item: **snap the receipt**,
 let everyone pick what they had, and Bupples splits it down to the line — tax and
 service included — then shows each person what they owe and **how to pay it**.
 Friends *without the app* can do all of that straight from the **browser**.
-Built mobile-first for a Gen-Z audience, with a living, physics-driven UI.
+Built mobile-first for a Gen-Z audience, with a living, physics-driven UI —
+fronted by **Pip**, a two-bubble brand mark that's also a character: he breathes,
+blinks, glances, reacts to your balance in real time, and dons a hat the instant
+you settle up.
 
 ## Screenshots
 
@@ -57,11 +60,26 @@ _Demo walkthrough:_ <!-- drop a demo.gif or a YouTube/Loom link here -->
 - 🧾 **Flexible expenses** — split **equally / by exact amounts / by percentage /
   by shares**, add **tax & service charge**, with a **60-second undo** window
   plus full edit & delete (with a change trail).
-- ⚡ **Turbo receipt splits** — a fast, one-time split for a single bill: **snap a
-  receipt**, OCR itemizes it, share a link, and each person **picks what they
-  had** (shared dishes split evenly). Bupples computes every share with **tax &
-  service riding proportionally**, shows who owes the payer, and surfaces **how to
-  pay them**.
+- ⚡ **Turbo receipt splits** — a fast, one-time split for a single bill. Tap
+  Turbo, **snap a receipt**, and a split *materializes*: OCR itemizes it, the
+  **currency is auto-detected** (or your default), your name + settings are
+  pre-filled, and you land **straight on the share link** — no setup menu in the
+  way. Each person **picks what they had** (shared dishes split evenly); Bupples
+  computes every share with **tax & service riding proportionally**, shows who
+  owes the payer, and surfaces **how to pay them**. Everything stays editable
+  mid-split, so a mistake is a one-tap fix.
+- 🖼️ **Profile pictures** — your photo (pulled from Google/Apple, or one you
+  pick) fills your **bubble**, with the name riding a blur strip whose tint and
+  text colour are **derived from the photo** so it stays legible over anything.
+  Turn it off to go private — you see no one's, and no one sees yours — and it
+  falls back to the lettered design.
+- 💱 **Currency-aware balances** — Bupples never adds ringgit to dollars: your
+  net is grouped **per currency**, leading with your default and listing every
+  other currency you carry a balance in beneath it.
+- ✏️ **Mutual renames** — opt-in per session: members can fix *each other's*
+  display name (with a notification), for when autocorrect mangles a friend's.
+- 👋 **First-run setup** — after sign-in, a warm three-beat flow — name (prefilled
+  from your account) · currency · light/dark — with **Pip** idling along.
 - 🪄 **Scan & drag-to-assign** — inside a normal session, scan a receipt and
   **drag each member's bubble onto the items they ordered** (with a tap fallback
   for accessibility). Bupples turns the assignment into one exact-split expense —
@@ -83,10 +101,14 @@ _Demo walkthrough:_ <!-- drop a demo.gif or a YouTube/Loom link here -->
   budgets; **mid-session rule changes**; lock-on-close; **offline guests** (people
   at the table without the app, tracked by name and settled in person).
 - 👑 **Host controls** — a crowned owner with **transferable ownership**, plus
-  **kick / ban** and member moderation.
+  **kick / ban** and member moderation. Removing a session **archives** it —
+  records preserved and exportable for everyone — never a silent wipe.
 - 🔐 **Accounts** — silent anonymous by default; **Continue with Google** *or*
   **Sign in with Apple** links your data so it backs up and follows you across
-  devices; one-tap **account deletion** (with Apple token revocation); local
+  devices; one-tap **account deletion** that **anonymises rather than erases** —
+  your name becomes "Deleted user" and your handles are dropped, but the shared
+  expenses, transfers and receipts everyone else relies on stay intact (you
+  can't delete your way out of a debt) — with Apple token revocation; local
   persistence so nothing resets.
 - 🛡️ **Trust & safety** — **report** user-generated content (receipts) for
   moderation, and a terms/abuse policy — built to App Store UGC guidelines.
@@ -167,7 +189,7 @@ lib/
     bubbles/     soft-body bubble simulation + render
     auth/        Google / Apple / anonymous sign-in
     settings/    profile, preferences, account deletion
-    onboarding/  tutorial + sign-in gate
+    onboarding/  tutorial · sign-in gate · first-run setup (name · currency · theme)
 functions/       Cloud Functions (TypeScript): notify, deleteAccount, apple, scanReceipt
 public/          Firebase Hosting — the no-app /t/CODE web claim page + JS split-math port
 ```
@@ -177,6 +199,21 @@ public/          Firebase Hosting — the no-app /t/CODE web claim page + JS spl
 - **Debt-simplification ledger** — a greedy min-cash-flow algorithm reduces every
   pairwise IOU to the minimum number of transfers, computed purely from the
   expense stream.
+- **Currency-correct aggregation** — balances are grouped by currency rather than
+  summed: the home + activity heroes lead with your default currency and surface
+  every other one as its own figure, so a `$` net and an `RM` net are never
+  illegally added.
+- **Privacy-preserving deletion** — account deletion runs server-side as an
+  **anonymise**, not a purge: a transaction rewrites the leaving user's member
+  entries to "Deleted user" and drops their uid + pay handles, while leaving the
+  expenses, transfers and receipts the *other* participants depend on untouched —
+  fraud-resistant by design (you can't erase shared proof or dodge a debt).
+  Session removal is a tamper-resistant **soft-archive** (records frozen,
+  exportable, restorable as read-only) rather than a destructive delete.
+- **Palette-derived avatars** — profile photos drive the bubble fill, with the
+  name set over a blur strip whose backdrop tint and text colour are computed
+  from the image's dominant colour so it stays readable on any photo; a single
+  mutual toggle opts a user out of the whole feature both ways.
 - **Item-level receipt splitting** — a cent-conserving algorithm splits each line
   among its claimants and rides tax/service **proportionally** to what each person
   ordered, distributing remainder cents deterministically so totals reconcile
@@ -207,9 +244,10 @@ public/          Firebase Hosting — the no-app /t/CODE web claim page + JS spl
   data purge (Guideline 5.1.1(v)).
 - **Security** — authorization is bound to the Firebase **auth uid** (not
   client-supplied ids): membership-scoped Firestore rules (no enumeration,
-  members-only writes, host-only delete, server-validated amounts, claim writes
-  locked to the claimant) + **App Check**. Hardened after structured security
-  audits.
+  members-only writes, **no client hard-deletes** — sessions soft-archive
+  one-way and deleted accounts anonymise server-side, server-validated amounts,
+  claim writes locked to the claimant) + **App Check**. Hardened after structured
+  security audits.
 - **Real-time + offline** — Firestore `snapshots()` push live updates to every
   participant; offline writes queue locally and flush on reconnect.
 
