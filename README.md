@@ -8,10 +8,12 @@
 
 [![Flutter](https://img.shields.io/badge/Flutter-Dart-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
 [![Firebase](https://img.shields.io/badge/Firebase-Firestore%20%C2%B7%20Auth%20%C2%B7%20Functions%20%C2%B7%20FCM%20%C2%B7%20Storage%20%C2%B7%20App%20Check-FFCA28?logo=firebase&logoColor=black)](https://firebase.google.com)
-[![Cloud Vision OCR](https://img.shields.io/badge/Receipt%20OCR-Cloud%20Vision-4285F4?logo=googlecloud&logoColor=white)](https://cloud.google.com/vision)
+[![Receipt AI](https://img.shields.io/badge/Receipt%20scan-Gemini%202.5%20Flash-2F6F4E?logo=googlegemini&logoColor=white)](https://cloud.google.com/vertex-ai)
 [![Riverpod](https://img.shields.io/badge/State-Riverpod-4B6BFB)](https://riverpod.dev)
 [![Platforms](https://img.shields.io/badge/iOS%20%C2%B7%20Android%20%C2%B7%20Web-grey)]()
-[![License](https://img.shields.io/badge/License-Proprietary-FF6A1A)](LICENSE)
+[![License](https://img.shields.io/badge/License-Proprietary-8B6F3E)](LICENSE)
+
+**[Live site → bupples.web.app](https://bupples.web.app)** · coming soon to the App Store
 
 *A polished case study. The source code is private — available for review on request.*
 
@@ -30,7 +32,8 @@ And for a one-off bill, **Turbo** turns it item-by-item: **snap the receipt**,
 let everyone pick what they had, and Bupples splits it down to the line — tax and
 service included — then shows each person what they owe and **how to pay it**.
 Friends *without the app* can do all of that straight from the **browser**.
-Built mobile-first for a Gen-Z audience, with a living, physics-driven UI —
+Built mobile-first, in a **warm-paper** design system (Fraunces display + DM Sans,
+botanical-green accents, light and dark) with a living, physics-driven UI —
 fronted by **Pip**, a two-bubble brand mark that's also a character: he breathes,
 blinks, glances, reacts to your balance in real time, and dons a hat the instant
 you settle up.
@@ -39,12 +42,12 @@ you settle up.
 
 | Bubble field | Add expense | Settle up | Invite (QR) |
 |:---:|:---:|:---:|:---:|
-| ![Bubble field](screenshots/session.jpg) | ![Add expense](screenshots/add-expense.jpg) | ![Settle up](screenshots/settle.jpg) | ![Invite](screenshots/invite.jpg) |
+| ![Bubble field](screenshots/session.svg) | ![Add expense](screenshots/add-expense.svg) | ![Settle up](screenshots/settle.svg) | ![Invite](screenshots/invite.svg) |
 
 > The home view is the **live bubble field** — members as physics-driven bubbles
 > sized by balance, the host crowned. Add expenses with categories + tax/service,
 > let Bupples compute the **fewest payments** to settle, and invite friends by
-> **QR or code**. Or **scan a receipt** and split it by the item.
+> **QR or code**. (Warm-paper mockups; the app ships light and dark.)
 
 <div align="center">
 
@@ -123,12 +126,12 @@ _Demo walkthrough:_ <!-- drop a demo.gif or a YouTube/Loom link here -->
 |-------|---------|
 | **App** | Flutter · Dart (iOS · Android · Web) |
 | **State** | Riverpod (StreamProvider / Provider.family + controllers) |
-| **Backend** | Firebase — Cloud Firestore (real-time sync), Auth (Anonymous · Google · Apple), **Cloud Functions** (push triggers, account deletion, Apple token revocation, **receipt OCR**), **Cloud Messaging** (push), **Cloud Storage** (receipts & payment QRs), **App Check**, Analytics |
-| **OCR** | **Google Cloud Vision** (document text detection) behind a callable function; receipt-text → line-items parsing in pure, unit-tested Dart |
+| **Backend** | Firebase — Cloud Firestore (real-time sync), Auth (Anonymous · Google · Apple), **Cloud Functions** (push triggers, account deletion, Apple token revocation, **receipt scanning**), **Cloud Messaging** (push), **Cloud Storage** (receipts & payment QRs), **App Check**, Analytics |
+| **Receipt AI** | **Gemini 2.5 Flash** via **Vertex AI** — structured receipt understanding (line-items + tax / service / total as JSON via a response schema) behind a callable function; the split math that consumes it is pure, unit-tested Dart |
 | **Functions** | Node.js · TypeScript (Firebase Cloud Functions v2) |
 | **Web (no-app) flow** | Static page on Firebase Hosting using the **Firebase JS SDK** + anonymous auth — no install needed to claim items |
 | **iOS** | Swift Package Manager (no CocoaPods); UIScene lifecycle; Universal Links |
-| **Design** | Custom liquid-glass design system, a hand-rolled soft-body bubble simulation |
+| **Design** | **Warm-paper** design system — Fraunces + DM Sans, botanical-green accents, light + dark — the **Pip** mascot as an animated `CustomPainter`, and a hand-rolled soft-body bubble simulation |
 
 ## Architecture
 
@@ -136,14 +139,14 @@ Feature-first and layered — UI depends only on repository **interfaces**, so t
 in-memory backend and Firestore are interchangeable. A serverless backend
 (Cloud Functions) handles everything that must be trusted, fan-out, or external:
 push notifications, recursive account deletion, Apple token revocation, and
-**receipt OCR** via Cloud Vision. People without the app reach a Turbo split from
+**receipt scanning** via Gemini on Vertex AI. People without the app reach a Turbo split from
 a **browser**, talking to Firestore directly through the JS SDK under the same
 Security Rules.
 
 ```mermaid
 flowchart TB
     subgraph Client["📱 Flutter — iOS · Android · Web"]
-        UI["Presentation · bubble field · glass design system"]
+        UI["Presentation · bubble field · warm-paper design system"]
         APP["Application · Riverpod providers + controllers"]
         DOM["Domain · immutable models · cent-safe split math"]
         DATA["Data · repository interfaces"]
@@ -164,7 +167,7 @@ flowchart TB
         subgraph FN["Cloud Functions · TypeScript"]
             NOTIFY["expense / request / join triggers"]
             ADMIN["deleteAccount · Apple revoke"]
-            SCAN["scanReceipt → Cloud Vision OCR"]
+            SCAN["scanReceipt → Gemini · Vertex AI"]
         end
     end
     FSR <-->|"snapshots() · offline queue"| FS
@@ -172,7 +175,7 @@ flowchart TB
     TWEB -.->|"anon sign in"| AUTH
     UI -.->|"sign in"| AUTH
     UI -.->|"upload receipt photo"| STG
-    UI -->|"OCR a receipt"| SCAN
+    UI -->|"scan a receipt"| SCAN
     APP -.->|"attest"| AC
     FS -->|"document triggers"| NOTIFY --> FCM -->|"push"| UI
 ```
@@ -219,10 +222,11 @@ public/          Firebase Hosting — the no-app /t/CODE web claim page + JS spl
   ordered, distributing remainder cents deterministically so totals reconcile
   exactly. Written once in Dart and **ported to JavaScript for the web, guarded by
   a parity test** so the app and the browser agree to the cent.
-- **Receipt OCR pipeline** — a callable Cloud Function wraps **Google Cloud
-  Vision**; the fuzzy "receipt text → line items + tax/service/total" parsing
-  lives in a **pure, unit-tested Dart parser**, keeping the heuristics easy to
-  iterate without backend round-trips.
+- **Receipt understanding** — a callable Cloud Function runs **Gemini 2.5 Flash
+  on Vertex AI**, returning structured line-items + tax / service / total as JSON
+  via a response schema (this replaced a brittle Cloud Vision OCR + text-heuristics
+  pass that misread amounts and tax). The split math that consumes it is pure,
+  unit-tested Dart, shared with the web.
 - **Drag-to-assign UX** — Flutter `Draggable`/`DragTarget` let you drop member
   bubbles onto receipt items (with an accessible tap fallback), collapsing a
   whole receipt into one exact-split expense.

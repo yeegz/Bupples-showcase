@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 716" width="340" height="716" font-family="'DM Sans','Segoe UI',sans-serif" role="img" aria-label="Bupples session screen — the Melaka hangout bubble field, warm-paper theme.">
+  <defs>
+    <linearGradient id="s1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FCF9F2"/><stop offset="0.5" stop-color="#F7F2EA"/><stop offset="1" stop-color="#F0E8DA"/></linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#2F7D55" stop-opacity="0.18"/><stop offset="1" stop-color="#2F7D55" stop-opacity="0"/></radialGradient>
+    <filter id="sf" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="14" stdDeviation="22" flood-color="#0D1C14" flood-opacity="0.20"/></filter>
+    <filter id="bf" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="4" stdDeviation="7" flood-color="#0D1C14" flood-opacity="0.18"/></filter>
+  </defs>
+  <rect x="10" y="8" width="320" height="700" rx="48" fill="#F2EBDD" stroke="#E1D7C8" stroke-width="1.5" filter="url(#sf)"/>
+  <rect x="22" y="20" width="296" height="676" rx="38" fill="url(#s1)"/>
+
+  <!-- header -->
+  <text x="44" y="50" font-size="12.5" font-weight="600" fill="#6F756B">9:41</text>
+  <rect x="40" y="66" width="30" height="30" rx="9" fill="#E4EFE5"/><text x="55" y="88" font-size="15" text-anchor="middle">🏖️</text>
+  <text x="80" y="82" font-size="18" font-weight="700" font-family="Georgia,serif" fill="#263128">Melaka</text>
+  <text x="80" y="99" font-size="12" fill="#6F756B">4 people · RM100.00 spent</text>
+
+  <!-- bubble field -->
+  <ellipse cx="150" cy="300" rx="150" ry="150" fill="url(#glow)"/>
+  <g filter="url(#bf)">
+    <!-- Joe = you, host, owed most -->
+    <circle cx="120" cy="300" r="62" fill="#2F6F4E" stroke="#214F39" stroke-width="3.5"/>
+    <text x="120" y="296" font-size="20" font-weight="700" fill="#FFFCF6" text-anchor="middle">Joe</text>
+    <text x="120" y="318" font-size="13" font-weight="600" fill="#FFFCF6" text-anchor="middle">+RM75</text>
+    <text x="120" y="333" font-size="10" fill="#CDE6D5" text-anchor="middle">you</text>
+    <!-- crown -->
+    <text x="120" y="232" font-size="26" text-anchor="middle">👑</text>
+
+    <circle cx="244" cy="246" r="44" fill="#8B6F3E"/>
+    <text x="244" y="244" font-size="14.5" font-weight="700" fill="#FFFCF6" text-anchor="middle">Steven</text>
+    <text x="244" y="261" font-size="11" font-weight="600" fill="#FFFCF6" text-anchor="middle">−RM25</text>
+
+    <circle cx="252" cy="352" r="42" fill="#3F6D73"/>
+    <text x="252" y="350" font-size="14" font-weight="700" fill="#FFFCF6" text-anchor="middle">Steph</text>
+    <text x="252" y="367" font-size="11" font-weight="600" fill="#FFFCF6" text-anchor="middle">−RM25</text>
+
+    <circle cx="150" cy="418" r="42" fill="#6F7A3D"/>
+    <text x="150" y="416" font-size="14" font-weight="700" fill="#FFFCF6" text-anchor="middle">Justin</text>
+    <text x="150" y="433" font-size="11" font-weight="600" fill="#FFFCF6" text-anchor="middle">−RM25</text>
+  </g>
+
+  <!-- owed card -->
+  <rect x="40" y="500" width="258" height="52" rx="16" fill="#FFFCF6" stroke="#D8CDBB" stroke-width="1.2"/>
+  <circle cx="66" cy="526" r="14" fill="#214F39"/><text x="66" y="531" font-size="12" font-weight="700" fill="#FFFCF6" text-anchor="middle">J</text>
+  <text x="90" y="531" font-size="15" font-weight="700" fill="#2F7D55">You are owed RM75.00</text>
+
+  <!-- actions -->
+  <rect x="40" y="566" width="122" height="46" rx="14" fill="#FFFCF6" stroke="#D8CDBB" stroke-width="1.2"/>
+  <text x="101" y="594" font-size="13.5" font-weight="600" fill="#263128" text-anchor="middle">Settle up</text>
+  <rect x="174" y="566" width="124" height="46" rx="14" fill="#2F6F4E"/>
+  <text x="236" y="594" font-size="13.5" font-weight="700" fill="#FFFCF6" text-anchor="middle">+ Add expense</text>
+
+  <rect x="140" y="676" width="60" height="5" rx="2.5" fill="#D8CDBB"/>
+</svg>
