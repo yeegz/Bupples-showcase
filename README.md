@@ -6,20 +6,41 @@
 
 **Split costs with friends — minus the awkward.**
 
+### Scan a receipt, let everyone claim what they had *live*, and Bupples settles the group exactly — even for friends without the app.
+
 [![Flutter](https://img.shields.io/badge/Flutter-Dart-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
 [![Firebase](https://img.shields.io/badge/Firebase-Firestore%20%C2%B7%20Auth%20%C2%B7%20Functions%20%C2%B7%20FCM%20%C2%B7%20Storage%20%C2%B7%20App%20Check-FFCA28?logo=firebase&logoColor=black)](https://firebase.google.com)
 [![Receipt AI](https://img.shields.io/badge/Receipt%20scan-Gemini%202.5%20Flash-2F6F4E?logo=googlegemini&logoColor=white)](https://cloud.google.com/vertex-ai)
 [![Riverpod](https://img.shields.io/badge/State-Riverpod-4B6BFB)](https://riverpod.dev)
-[![Platforms](https://img.shields.io/badge/iOS%20%C2%B7%20Android%20%C2%B7%20Web-grey)]()
+[![Platform](https://img.shields.io/badge/iPhone-TestFlight-2F6F4E?logo=apple&logoColor=white)]()
 [![License](https://img.shields.io/badge/License-Proprietary-8B6F3E)](LICENSE)
 
-**[Live site → bupples.web.app](https://bupples.web.app)** · coming soon to the App Store
-
-*A polished case study. The source code is private — available for review on request.*
+**[Live site → bupples.web.app](https://bupples.web.app)** · on **TestFlight** now, coming soon to the App Store
 
 </div>
 
+> **Source code is private while Bupples prepares for launch.** I'm happy to give
+> read-only access to reviewers, recruiters, or collaborators on request — this is
+> a deliberate pre-launch choice, not a hidden codebase.
+
 ---
+
+## Demo
+
+> ▶ **~30-second walkthrough:** **create a session → scan a receipt → everyone claims what they had → settle up.**
+
+<!-- For maximum impact, drop a screen recording here:
+       <p align="center"><img src="assets/demo.gif" width="280" alt="Bupples demo: create, scan, claim, settle" /></p>
+     or link a Loom / YouTube clip. -->
+
+_Recording in progress — the four screens below show the key moments in the meantime._
+
+## How it works
+
+1. **Start a hangout** and share a short code or a scannable **QR**.
+2. **Scan the receipt** — Gemini reads the items, tax, service, discount, store and currency.
+3. **Everyone claims what they had**, live — shared dishes split evenly, tax and service ride proportionally.
+4. **Settle up** in the **fewest payments**, with how-to-pay details attached. Friends *without the app* do it all from the **browser**.
 
 ## The idea
 
@@ -49,13 +70,12 @@ you settle up.
 > let Bupples compute the **fewest payments** to settle, and invite friends by
 > **QR or code**. (Warm-paper mockups; the app ships light and dark.)
 
-<div align="center">
-
-_Demo walkthrough:_ <!-- drop a demo.gif or a YouTube/Loom link here -->
-
-</div>
-
 ## What it does
+
+<details open>
+<summary><b>The full feature set</b> — tap to collapse</summary>
+
+<br />
 
 - 🫧 **Live bubble field** — each member is a physics-driven, draggable bubble
   sized by their balance. The cluster is *interactive*: bubbles bounce off UI
@@ -124,6 +144,8 @@ _Demo walkthrough:_ <!-- drop a demo.gif or a YouTube/Loom link here -->
   owe and their full expense history.
 - ♿ **Accessibility & polish** — haptics, reduce-motion support, and a bundled
   type system for offline-safe, flash-free first frames.
+
+</details>
 
 ## Tech stack
 
@@ -279,11 +301,12 @@ public/          Firebase Hosting — the no-app /t/CODE web claim page + JS spl
 
 ## Status
 
-Preparing for **App Store** submission; running on iOS, Android, and Web, with the
-no-app web claim flow live on Firebase Hosting. Currently on TestFlight build
-**`1.0.0+15`** — see **[CHANGELOG.md](CHANGELOG.md)** for the build-by-build
-history. The full source lives in a private repository — **happy to share read
-access on request.**
+**Built for iPhone** and on **TestFlight** now (build **`1.0.0+15`** — see
+**[CHANGELOG.md](CHANGELOG.md)** for the build-by-build history), preparing for
+**App Store** submission. The **no-app web claim** flow is already live on Firebase
+Hosting, so friends without the app can join a Turbo split from a browser;
+**Android is on the way.** The full source lives in a private repository —
+**happy to share read access on request.**
 
 ---
 
