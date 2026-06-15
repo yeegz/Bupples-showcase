@@ -83,10 +83,13 @@ _Demo walkthrough:_ <!-- drop a demo.gif or a YouTube/Loom link here -->
   display name (with a notification), for when autocorrect mangles a friend's.
 - 👋 **First-run setup** — after sign-in, a warm three-beat flow — name (prefilled
   from your account) · currency · light/dark — with **Pip** idling along.
-- 🪄 **Scan & drag-to-assign** — inside a normal session, scan a receipt and
-  **drag each member's bubble onto the items they ordered** (with a tap fallback
-  for accessibility). Bupples turns the assignment into one exact-split expense —
-  your settle-up settings still apply.
+- 🧾 **Collaborative receipts** — inside a normal session, upload a receipt (scan
+  it or type the items). The person who paid **reviews and confirms** the scan,
+  then **everyone claims the items they had in real time** by tapping the row
+  (shared items split evenly). Bupples turns it into one exact-split expense — tax,
+  service and **discounts** included — and surfaces who owes the payer. Each person
+  can **mark their share paid**; once everyone has, the owner gets a nudge to clean
+  the receipt up, with its expense + breakdown kept in the log.
 - 🌐 **No-app web claim** — share a Turbo link and friends **without the app**
   open it in a **browser**, pick their name, claim their items, and see what they
   owe — anonymous, no install — with a gentle nudge to get the app for the rest.
@@ -97,8 +100,10 @@ _Demo walkthrough:_ <!-- drop a demo.gif or a YouTube/Loom link here -->
   (≤ N−1 transfers), via a request → confirm → undo flow, with optional
   **receipt-photo proof** attached to each transfer.
 - 🔔 **Push notifications** — real-time alerts when someone adds an expense,
-  requests a settle-up, or joins your session (Firebase Cloud Messaging, driven
-  by Firestore-triggered Cloud Functions).
+  requests a settle-up, joins your session, **uploads a receipt to claim**, or
+  when **everyone's paid** a receipt or Turbo split (so the owner can clean it up).
+  Driven by Firestore-triggered Cloud Functions over Firebase Cloud Messaging,
+  with **deep links** that open straight to the right screen.
 - 👥 **Sessions** — join by short code or **scannable QR**; configurable wrap-up
   (**host decides** or **unanimous vote**); per-session currency (+ custom) and
   budgets; **mid-session rule changes**; lock-on-close; **offline guests** (people
@@ -127,7 +132,7 @@ _Demo walkthrough:_ <!-- drop a demo.gif or a YouTube/Loom link here -->
 | **App** | Flutter · Dart (iOS · Android · Web) |
 | **State** | Riverpod (StreamProvider / Provider.family + controllers) |
 | **Backend** | Firebase — Cloud Firestore (real-time sync), Auth (Anonymous · Google · Apple), **Cloud Functions** (push triggers, account deletion, Apple token revocation, **receipt scanning**), **Cloud Messaging** (push), **Cloud Storage** (receipts & payment QRs), **App Check**, Analytics |
-| **Receipt AI** | **Gemini 2.5 Flash** via **Vertex AI** — structured receipt understanding (line-items + tax / service / total as JSON via a response schema) behind a callable function; the split math that consumes it is pure, unit-tested Dart |
+| **Receipt AI** | **Gemini 2.5 Flash** via **Vertex AI** — structured receipt understanding (line-items + tax / service / **discount** / total, plus **store name** and **currency**, as JSON via a response schema) behind a callable function; the split math that consumes it is pure, unit-tested Dart |
 | **Functions** | Node.js · TypeScript (Firebase Cloud Functions v2) |
 | **Web (no-app) flow** | Static page on Firebase Hosting using the **Firebase JS SDK** + anonymous auth — no install needed to claim items |
 | **iOS** | Swift Package Manager (no CocoaPods); UIScene lifecycle; Universal Links |
@@ -165,7 +170,7 @@ flowchart TB
         AC["App Check"]
         FCM(["Cloud Messaging"])
         subgraph FN["Cloud Functions · TypeScript"]
-            NOTIFY["expense / request / join triggers"]
+            NOTIFY["expense / request / join / receipt / all-paid triggers"]
             ADMIN["deleteAccount · Apple revoke"]
             SCAN["scanReceipt → Gemini · Vertex AI"]
         end
@@ -185,8 +190,8 @@ lib/
   app/theme/     design tokens + Material theme
   core/          palette, cent-safe money, deep links, services, shared widgets
   features/
-    session/     sessions, expenses, members, settlement, receipts,
-                 transfer details, scan-&-drag receipt assignment
+    session/     sessions, expenses, members, settlement, transfer details,
+                 collaborative real-time receipts (model · claims · settle · screen)
     turbo/        Turbo receipt splits — domain (split, items, claims, ledger,
                  receipt parser) · data · application · screens (create / share / claim)
     bubbles/     soft-body bubble simulation + render
@@ -219,17 +224,24 @@ public/          Firebase Hosting — the no-app /t/CODE web claim page + JS spl
   mutual toggle opts a user out of the whole feature both ways.
 - **Item-level receipt splitting** — a cent-conserving algorithm splits each line
   among its claimants and rides tax/service **proportionally** to what each person
-  ordered, distributing remainder cents deterministically so totals reconcile
-  exactly. Written once in Dart and **ported to JavaScript for the web, guarded by
-  a parity test** so the app and the browser agree to the cent.
+  ordered (subtracting any **discount** the same way), distributing remainder cents
+  deterministically so totals reconcile exactly. Written once in Dart and **ported
+  to JavaScript for the web, guarded by a parity test** so the app and the browser
+  agree to the cent — and **reused by Turbo and the collaborative session receipts**
+  alike, so every split path agrees down to the last cent.
 - **Receipt understanding** — a callable Cloud Function runs **Gemini 2.5 Flash
   on Vertex AI**, returning structured line-items + tax / service / total as JSON
   via a response schema (this replaced a brittle Cloud Vision OCR + text-heuristics
   pass that misread amounts and tax). The split math that consumes it is pure,
   unit-tested Dart, shared with the web.
-- **Drag-to-assign UX** — Flutter `Draggable`/`DragTarget` let you drop member
-  bubbles onto receipt items (with an accessible tap fallback), collapsing a
-  whole receipt into one exact-split expense.
+- **Collaborative real-time receipts** — a receipt is a live Firestore object in a
+  session with a per-member **claims** subcollection, so everyone taps the items
+  they had and the shares update live for the whole table. Claims are
+  **per-claimant documents** to keep concurrent writes contention-free; the payer
+  is the owner (rules-gated edits), the scan is **reviewed before it goes live**,
+  and on finalise it **materialises into one exact-split expense** so balances stay
+  correct. A paid-tracking pass + a Cloud-Function nudge then lets the owner archive
+  it once everyone has settled — the expense and its breakdown stay in the log.
 - **No-app web participation** — a lightweight static page (Firebase JS SDK +
   anonymous auth) lets non-users claim items and see what they owe; **every write
   is scoped by Security Rules** — a guest can only append their own membership and
@@ -238,8 +250,18 @@ public/          Firebase Hosting — the no-app /t/CODE web claim page + JS spl
   repulsion + idle drift + UI-obstacle collisions) drives a 60fps, draggable,
   reactive cluster, with a ticker that sleeps when idle/backgrounded.
 - **Serverless push pipeline** — Firestore-triggered Cloud Functions fan out FCM
-  notifications to a session's members, with per-device token management that
-  re-binds on account switch and prunes stale tokens.
+  notifications to a session's members (new expense, settle-up request, join,
+  **receipt uploaded**, and **everyone-paid** nudges), each carrying a **deep-link
+  payload** that opens straight to the relevant receipt, split, or session, with
+  per-device token management that re-binds on account switch and prunes stale tokens.
+- **Account-scoped image cache** — avatars are cached to a per-user on-device file
+  store, keyed by the storage URL (which carries a version token), so they load
+  instantly and never re-download, while a sign-out or account switch wipes the
+  cache so one account can never surface another's faces. Built without a native
+  database to stay on the project's CocoaPods-free Swift Package Manager setup.
+- **Battery-aware lifecycle** — a top-level ticker freezes **every** animation in
+  the app the instant it leaves the foreground (app switcher, Control Centre,
+  background) and resumes on return, so a backgrounded Bupples costs nothing.
 - **Cross-platform receipts** — transfer-proof images upload to Cloud Storage via
   a `dart:io`-free path (so it works on web too), gated by Security Rules and
   backed by UGC reporting/moderation.
@@ -258,8 +280,10 @@ public/          Firebase Hosting — the no-app /t/CODE web claim page + JS spl
 ## Status
 
 Preparing for **App Store** submission; running on iOS, Android, and Web, with the
-no-app web claim flow live on Firebase Hosting. The full source lives in a private
-repository — **happy to share read access on request.**
+no-app web claim flow live on Firebase Hosting. Currently on TestFlight build
+**`1.0.0+15`** — see **[CHANGELOG.md](CHANGELOG.md)** for the build-by-build
+history. The full source lives in a private repository — **happy to share read
+access on request.**
 
 ---
 
