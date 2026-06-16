@@ -12,10 +12,11 @@
 [![Firebase](https://img.shields.io/badge/Firebase-Firestore%20%C2%B7%20Auth%20%C2%B7%20Functions%20%C2%B7%20FCM%20%C2%B7%20Storage%20%C2%B7%20App%20Check-FFCA28?logo=firebase&logoColor=black)](https://firebase.google.com)
 [![Receipt AI](https://img.shields.io/badge/Receipt%20scan-Gemini%202.5%20Flash-2F6F4E?logo=googlegemini&logoColor=white)](https://cloud.google.com/vertex-ai)
 [![Riverpod](https://img.shields.io/badge/State-Riverpod-4B6BFB)](https://riverpod.dev)
-[![Platform](https://img.shields.io/badge/iPhone-TestFlight-2F6F4E?logo=apple&logoColor=white)]()
+[![iOS](https://img.shields.io/badge/iPhone-TestFlight%20%C2%B7%20Widgets%20%C2%B7%20Controls-2F6F4E?logo=apple&logoColor=white)]()
+[![Web](https://img.shields.io/badge/Web-full%20app%20live-2F6F4E?logo=googlechrome&logoColor=white)](https://bupples.web.app/app)
 [![License](https://img.shields.io/badge/License-Proprietary-8B6F3E)](LICENSE)
 
-**[Live site → bupples.web.app](https://bupples.web.app)** · on **TestFlight** now, coming soon to the App Store
+**[Live site → bupples.web.app](https://bupples.web.app)** · the **full app now runs in the browser** · on **TestFlight** now — with home-screen **widgets** and **Control Center** actions — coming soon to the App Store
 
 </div>
 
@@ -38,7 +39,7 @@ _Recording in progress — the four screens below show the key moments in the me
 ## How it works
 
 1. **Start a hangout** and share a short code or a scannable **QR**.
-2. **Scan the receipt** — Gemini reads the items, tax, service, discount, store and currency.
+2. **Scan the receipt** — Gemini reads the items (with quantities), tax, service, discount, store and currency.
 3. **Everyone claims what they had**, live — shared dishes split evenly, tax and service ride proportionally.
 4. **Settle up** in the **fewest payments**, with how-to-pay details attached. Friends *without the app* do it all from the **browser**.
 
@@ -84,13 +85,13 @@ you settle up.
   by shares**, add **tax & service charge**, with a **60-second undo** window
   plus full edit & delete (with a change trail).
 - ⚡ **Turbo receipt splits** — a fast, one-time split for a single bill. Tap
-  Turbo, **snap a receipt**, and a split *materializes*: OCR itemizes it, the
-  **currency is auto-detected** (or your default), your name + settings are
-  pre-filled, and you land **straight on the share link** — no setup menu in the
-  way. Each person **picks what they had** (shared dishes split evenly); Bupples
-  computes every share with **tax & service riding proportionally**, shows who
-  owes the payer, and surfaces **how to pay them**. Everything stays editable
-  mid-split, so a mistake is a one-tap fix.
+  Turbo, **snap a receipt**, and a split *materializes*: Gemini itemizes it
+  (reading **quantities** too — "2 × Burger"), the **currency is auto-detected**
+  (or your default), your name + settings are pre-filled, and you land **straight
+  on the share link** — no setup menu in the way. Each person **picks what they
+  had** (shared dishes split evenly); Bupples computes every share with **tax &
+  service riding proportionally**, shows who owes the payer, and surfaces **how to
+  pay them**. Everything stays editable mid-split, so a mistake is a one-tap fix.
 - 🖼️ **Profile pictures** — your photo (pulled from Google/Apple, or one you
   pick) fills your **bubble**, with the name riding a blur strip whose tint and
   text colour are **derived from the photo** so it stays legible over anything.
@@ -107,12 +108,31 @@ you settle up.
   it or type the items). The person who paid **reviews and confirms** the scan,
   then **everyone claims the items they had in real time** by tapping the row
   (shared items split evenly). Bupples turns it into one exact-split expense — tax,
-  service and **discounts** included — and surfaces who owes the payer. Each person
-  can **mark their share paid**; once everyone has, the owner gets a nudge to clean
-  the receipt up, with its expense + breakdown kept in the log.
-- 🌐 **No-app web claim** — share a Turbo link and friends **without the app**
-  open it in a **browser**, pick their name, claim their items, and see what they
-  owe — anonymous, no install — with a gentle nudge to get the app for the rest.
+  service and **discounts** included — and surfaces who owes the payer. Settling is
+  tracked **per item**: each person ticks off the items they've actually paid for,
+  and the "everyone's settled" nudge fires only once **every owed item** is paid —
+  with its expense + breakdown kept in the log.
+- ✍️ **Receipt edits, locks & an audit trail** — before a receipt is settled, the
+  payer can fix an item's name, amount or quantity; anyone else can **suggest a
+  correction** the owner approves or declines, and every change lands in a
+  tamper-evident **edit history**. Once a receipt is added to balances it
+  **locks** — items, amounts and title can no longer drift from the recorded proof
+  (enforced in the app *and* the security rules).
+- 📲 **iOS widgets & Control Center** — a full WidgetKit family (Small · Medium ·
+  Large · iPad Extra-Large, plus Lock-Screen Circular / Rectangular / Inline,
+  StandBy-friendly) shows your net at a glance, who you owe / who owes you, recent
+  hangouts, and quick Activity / Join / Create taps — with **Pip drawn natively**,
+  expression keyed to your balance, themed to your accent in light and dark. Two
+  **Control Center controls** (iOS 18) — **Quick Turbo Split** and **Quick Add
+  Expense** — sit on Control Centre, the Lock Screen, or the Action Button and open
+  Bupples straight into that flow, even from a cold start.
+- 🌐 **Bupples on the web** — the **full app** now runs in the browser at
+  *bupples.web.app/app*: sign in, see your hangouts and balances, join a normal
+  session or a Turbo split from a link, and settle up — guarded by **App Check**
+  (reCAPTCHA) like mobile. A shared link opens the app if you have it and otherwise
+  hands off cleanly to the web version. Friends **without the app** can still claim
+  a Turbo split **anonymously** — pick a name, claim their items, see what they owe,
+  no install — with a gentle nudge to get the app for the rest.
 - 💸 **Transfer details** — attach **how to pay you** (method + handle + an
   optional QR/screenshot) to your profile, so anyone who owes you knows exactly
   where to send it — in both Turbo and regular sessions.
@@ -156,8 +176,8 @@ you settle up.
 | **Backend** | Firebase — Cloud Firestore (real-time sync), Auth (Anonymous · Google · Apple), **Cloud Functions** (push triggers, account deletion, Apple token revocation, **receipt scanning**), **Cloud Messaging** (push), **Cloud Storage** (receipts & payment QRs), **App Check**, Analytics |
 | **Receipt AI** | **Gemini 2.5 Flash** via **Vertex AI** — structured receipt understanding (line-items + tax / service / **discount** / total, plus **store name** and **currency**, as JSON via a response schema) behind a callable function; the split math that consumes it is pure, unit-tested Dart |
 | **Functions** | Node.js · TypeScript (Firebase Cloud Functions v2) |
-| **Web (no-app) flow** | Static page on Firebase Hosting using the **Firebase JS SDK** + anonymous auth — no install needed to claim items |
-| **iOS** | Swift Package Manager (no CocoaPods); UIScene lifecycle; Universal Links |
+| **Web** | The **full Flutter web app** on Firebase Hosting (App Check via reCAPTCHA), with link hand-off from shared session / Turbo links; **plus** a lightweight **Firebase JS SDK + anonymous-auth** claim page so friends without the app can join a Turbo split with no install |
+| **iOS** | Swift Package Manager (no CocoaPods); UIScene lifecycle; Universal Links + custom-scheme deep links; **WidgetKit** (home-screen + Lock-Screen, Pip drawn in SwiftUI `Canvas`) and **App Intents / Control widgets** (iOS 18), sharing state through an **App Group** |
 | **Design** | **Warm-paper** design system — Fraunces + DM Sans, botanical-green accents, light + dark — the **Pip** mascot as an animated `CustomPainter`, and a hand-rolled soft-body bubble simulation |
 
 ## Architecture
@@ -166,13 +186,15 @@ Feature-first and layered — UI depends only on repository **interfaces**, so t
 in-memory backend and Firestore are interchangeable. A serverless backend
 (Cloud Functions) handles everything that must be trusted, fan-out, or external:
 push notifications, recursive account deletion, Apple token revocation, and
-**receipt scanning** via Gemini on Vertex AI. People without the app reach a Turbo split from
-a **browser**, talking to Firestore directly through the JS SDK under the same
-Security Rules.
+**receipt scanning** via Gemini on Vertex AI. The same Flutter codebase ships as
+the iPhone app, the **full web app** (Firebase Hosting), and the native **iOS
+widgets + Control Center** extension, which share live state through an App Group.
+People without the app reach a Turbo split from a **browser** too, talking to
+Firestore directly through the JS SDK under the same Security Rules.
 
 ```mermaid
 flowchart TB
-    subgraph Client["📱 Flutter — iOS · Android · Web"]
+    subgraph Client["📱 Flutter — iPhone · Android · Web (same codebase)"]
         UI["Presentation · bubble field · warm-paper design system"]
         APP["Application · Riverpod providers + controllers"]
         DOM["Domain · immutable models · cent-safe split math"]
@@ -182,6 +204,13 @@ flowchart TB
         DATA --> MEM["In-memory repos · zero-setup demo"]
         DATA --> FSR["Firestore repos · real-time"]
     end
+    subgraph Native["📲 iOS native extension"]
+        WID["WidgetKit · home + Lock Screen · Pip in Canvas"]
+        CTL["Control Center / Action Button · App Intents"]
+        AG[["App Group · shared snapshot + deep-link routing"]]
+        WID --- AG
+        CTL --- AG
+    end
     subgraph Web["🌐 No-app web claim — Firebase JS SDK"]
         TWEB["/t/CODE page · anon auth · same split math (JS port)"]
     end
@@ -189,10 +218,10 @@ flowchart TB
         FS[("Cloud Firestore")]
         AUTH["Auth · Anonymous / Google / Apple"]
         STG[("Cloud Storage · receipts · pay QRs")]
-        AC["App Check"]
+        AC["App Check · reCAPTCHA on web"]
         FCM(["Cloud Messaging"])
         subgraph FN["Cloud Functions · TypeScript"]
-            NOTIFY["expense / request / join / receipt / all-paid triggers"]
+            NOTIFY["expense / request / join / receipt / item-paid triggers"]
             ADMIN["deleteAccount · Apple revoke"]
             SCAN["scanReceipt → Gemini · Vertex AI"]
         end
@@ -203,6 +232,8 @@ flowchart TB
     UI -.->|"sign in"| AUTH
     UI -.->|"upload receipt photo"| STG
     UI -->|"scan a receipt"| SCAN
+    UI -->|"writes snapshot"| AG
+    AG -.->|"open URL · cold-start route"| UI
     APP -.->|"attest"| AC
     FS -->|"document triggers"| NOTIFY --> FCM -->|"push"| UI
 ```
@@ -221,7 +252,12 @@ lib/
     settings/    profile, preferences, account deletion
     onboarding/  tutorial · sign-in gate · first-run setup (name · currency · theme)
 functions/       Cloud Functions (TypeScript): notify, deleteAccount, apple, scanReceipt
-public/          Firebase Hosting — the no-app /t/CODE web claim page + JS split-math port
+ios/
+  Runner/        UIScene lifecycle + deep-link routing (native → Flutter)
+  BupplesWidgets/  WidgetKit views, native Pip (SwiftUI Canvas), Control widgets,
+                   shared snapshot via App Group
+public/          Firebase Hosting — full Flutter web build at /app, the no-app
+                 /t/CODE claim page, and the JS split-math port (parity-tested)
 ```
 
 ## Engineering highlights
@@ -262,8 +298,16 @@ public/          Firebase Hosting — the no-app /t/CODE web claim page + JS spl
   **per-claimant documents** to keep concurrent writes contention-free; the payer
   is the owner (rules-gated edits), the scan is **reviewed before it goes live**,
   and on finalise it **materialises into one exact-split expense** so balances stay
-  correct. A paid-tracking pass + a Cloud-Function nudge then lets the owner archive
-  it once everyone has settled — the expense and its breakdown stay in the log.
+  correct. Pre-settle, edits are **owner-approved correction requests** logged to a
+  tamper-evident history; post-settle the receipt **locks**. The expense and its
+  breakdown stay in the log even after the owner archives it.
+- **Item-level paid tracking** — settle-up is recorded per line, not per person: a
+  claim carries the set of item ids actually paid, and the "fully settled" state is
+  decided **server-side** — true only when every split item is claimed *and* every
+  debtor-claimed item is marked paid (with a legacy whole-share fallback for old
+  data). So marking one item paid from the web or the app can never trip a false
+  "everyone's paid" push, and a retry or reopen can't replay one (notify-locks
+  de-dupe). The model is shared by Turbo and session receipts and ported to the web.
 - **No-app web participation** — a lightweight static page (Firebase JS SDK +
   anonymous auth) lets non-users claim items and see what they owe; **every write
   is scoped by Security Rules** — a guest can only append their own membership and
@@ -273,9 +317,27 @@ public/          Firebase Hosting — the no-app /t/CODE web claim page + JS spl
   reactive cluster, with a ticker that sleeps when idle/backgrounded.
 - **Serverless push pipeline** — Firestore-triggered Cloud Functions fan out FCM
   notifications to a session's members (new expense, settle-up request, join,
-  **receipt uploaded**, and **everyone-paid** nudges), each carrying a **deep-link
-  payload** that opens straight to the relevant receipt, split, or session, with
-  per-device token management that re-binds on account switch and prunes stale tokens.
+  **receipt uploaded**, and the **item-exact "everyone's paid"** nudge), each
+  carrying a **deep-link payload** that opens straight to the relevant receipt,
+  split, or session, with per-device token management that re-binds on account
+  switch and prunes stale tokens.
+- **Native iOS widgets & Control Center** — a separate WidgetKit + App Intents
+  extension (no Flutter on the home screen): the app writes a compact balance
+  snapshot to a shared **App Group**, which the widgets read to render the full
+  family (home-screen sizes, Lock-Screen accessories, StandBy). **Pip is redrawn
+  natively in a SwiftUI `Canvas`** — bubbles, Bézier eyes by mood — to stay on-model
+  and crisp at every size, themed to the user's accent in light and dark. The iOS 18
+  **Control widgets** (Quick Turbo Split, Quick Add Expense) fire an `OpenURLIntent`
+  that the app routes through a native→Flutter MethodChannel, **including a cold
+  start**: the launch URL is stashed, replayed once Flutter is ready, and the
+  router restores the session before navigating. Built CocoaPods-free on the
+  project's SPM-only setup (the embed/sign phases ordered to avoid a build cycle).
+- **One Flutter codebase, three surfaces** — the same app compiles to the iPhone
+  build, the **full web app** (served at `/app` on Firebase Hosting, App Check
+  attested with reCAPTCHA v3), and feeds the native iOS extension. Shared session
+  and Turbo links **hand off** intelligently — open the installed app via deep
+  link, else continue in the web app — and the web build reuses the cent-exact
+  split math through the parity-tested JS port.
 - **Account-scoped image cache** — avatars are cached to a per-user on-device file
   store, keyed by the storage URL (which carries a version token), so they load
   instantly and never re-download, while a sign-out or account switch wipes the
@@ -301,12 +363,14 @@ public/          Firebase Hosting — the no-app /t/CODE web claim page + JS spl
 
 ## Status
 
-**Built for iPhone** and on **TestFlight** now (build **`1.0.0+15`** — see
+**Built for iPhone** and on **TestFlight** now (build **`1.0.0+17`** — see
 **[CHANGELOG.md](CHANGELOG.md)** for the build-by-build history), preparing for
-**App Store** submission. The **no-app web claim** flow is already live on Firebase
-Hosting, so friends without the app can join a Turbo split from a browser;
-**Android is on the way.** The full source lives in a private repository —
-**happy to share read access on request.**
+**App Store** submission, with native **home-screen widgets** and **Control Center**
+actions. The **full web app** is live on Firebase Hosting at
+**[bupples.web.app/app](https://bupples.web.app/app)** — and friends without the app
+can still join a Turbo split from a plain browser. The app stays the better
+experience, and **Android is on the way.** The full source lives in a private
+repository — **happy to share read access on request.**
 
 ---
 
