@@ -8,6 +8,55 @@ skipped in the version sequence (10 → 12).
 
 ---
 
+## Build 16 — `1.0.0+16`
+
+The native-widgets release, plus a deep correctness pass across money, privacy,
+notifications and deleted-session proof.
+
+### Added
+- **iOS home-screen & Lock-Screen widgets.** A full WidgetKit family — Small,
+  Medium, Large, Extra-Large (iPad), and the Lock-Screen Circular / Rectangular /
+  Inline accessories, with a StandBy-friendly layout. Each shows your balance at a
+  glance — net, who you owe, who owes you, recent hangouts and quick
+  Activity / Join / Create taps. **Pip** is drawn natively (crisp at every size)
+  with an expression for your state: worried when you owe, curious when you're
+  owed, happy when settled. The widgets theme to your selected accent, work in
+  light and dark, and carry a subtle "Updated" timestamp.
+- **Control Center controls (iOS 18).** Two one-tap controls you can add to
+  Control Centre, the Lock Screen, or the Action Button — **Quick Turbo Split**
+  and **Quick Add Expense** — each opening Bupples straight into that flow.
+- **Receipt quantity detection.** The scanner now reads item **quantities**
+  ("2× Burger", "Qty 2", or separate qty / unit-price / total columns) and shows
+  them — "2 × Burger" — while the split stays cent-exact.
+- **Collaborative receipt editing.** The person who paid can fix an item's name,
+  amount or quantity before it is settled; anyone else can **suggest a
+  correction** that the owner approves or declines. Every change is recorded in a
+  tamper-evident **edit history** kept with the receipt.
+- **Join a hangout from the web.** The homepage gains a "Have a code? Join a
+  hangout" entry that hands off into the app.
+
+### Fixed
+- **No more misleading "everyone's paid" notifications.** A claim-toggle bug could
+  re-fire the settle-up push; it now fires **exactly once**, only when every
+  debtor has truly paid, and never to yourself — with server-side de-duplication
+  so a retry or app reopen can't replay it.
+- **Strict account privacy.** A second account on the same device can never see
+  the previous account's sessions — not even for a frame — enforced right at
+  render time. The home-screen widget is account-scoped too and **clears
+  instantly** on sign-out or account deletion.
+- **Paid receipts are locked.** Once a receipt is added to balances, its items,
+  amounts and title can no longer be changed (enforced in the app and in the
+  security rules), so the recorded expense can never drift from its proof.
+- **Archives stay put.** Deleting a session or a Turbo split no longer makes the
+  record flicker away and reappear — it settles immediately into a read-only
+  archived row, and **Turbo archives now reliably persist** across reopens.
+
+### Performance
+- **Smoother Turbo on the web** — fewer redraws (a no-op render guard) and a
+  cleaned-up realtime listener so a backgrounded tab stops doing work.
+
+---
+
 ## Build 15 — `1.0.0+15`
 
 The collaborative-receipt release, plus a broad feel + performance pass.
