@@ -8,6 +8,47 @@ skipped in the version sequence (10 → 12).
 
 ---
 
+## Build 17 — `1.0.0+17`
+
+A web release and a hardening pass: Bupples now runs in the browser, the iOS
+Control Center actions and widgets work as intended, and settle-up
+notifications are exact down to the item.
+
+### Added
+- **Bupples on the web.** The full app now runs in a browser at
+  *bupples.web.app/app* — sign in, see your hangouts and balances, join a normal
+  session or a Turbo split from a link, and settle up. A shared hangout link
+  opens the app if you have it, and otherwise hands off cleanly into the web
+  version (the app is still the better experience, and the site says so).
+  Protected with Firebase App Check (reCAPTCHA) like the mobile app.
+- **iOS Control Center controls now work end-to-end.** *Quick Turbo Split* and
+  *Quick Add Expense* open Bupples straight into that flow — from the Lock
+  Screen, Control Centre, or the Action Button — including a cold start, where
+  the app launches, restores your session, and then routes.
+
+### Fixed
+- **Settle-up notifications are now exact to the item.** Marking a single item
+  paid (from the web or the app) no longer triggers a "everyone's paid" alert.
+  Payment is tracked **per item**, and the "fully settled" nudge only fires when
+  *every* owed item in a receipt or split has actually been paid — checked on
+  the server so a partial payment, or items still unclaimed, can never trip it.
+- **Pip looks like Pip in the widgets.** The home-screen and Lock-Screen widgets
+  now draw the real Pip — proportioned, sharp, and expressive by balance state —
+  instead of an off-model approximation.
+- **Onboarding no longer collides with the keyboard.** On the name step, Pip
+  tucks away and the page indicator steps aside while you type, so nothing
+  overlaps — on every iPhone size.
+
+### Changed
+- **Widgets feel like Bupples.** A confident hero-balance treatment, warm-paper
+  surfaces with quiet hairline rows, the app's accent colour, and Pip woven in —
+  across Small, Medium, Large, and the Lock-Screen accessories.
+- **Calmer onboarding motion.** The intro pages now settle in with a gentle,
+  staggered entrance (bubble, then title, then body) instead of a quick fade —
+  slower and more deliberate, and it still respects Reduce Motion.
+
+---
+
 ## Build 16 — `1.0.0+16`
 
 The native-widgets release, plus a deep correctness pass across money, privacy,
