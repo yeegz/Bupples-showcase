@@ -28,15 +28,17 @@ group to the cent — even friends without the app.
 
 ## Screenshots
 
-| Bubble field | Add expense | Settle up | Invite (QR) |
+| Session · bubble field | Home | Activity | Settings |
 |:---:|:---:|:---:|:---:|
-| ![Home bubble field — members as physics-driven bubbles sized by balance](media/screenshots/session.svg) | ![Add expense — categories, split options, tax and service](media/screenshots/add-expense.svg) | ![Settle up — the fewest payments to square the group](media/screenshots/settle.svg) | ![Invite — join by QR or short code](media/screenshots/invite.svg) |
+| ![A session's live bubble field — members as photo bubbles sized by balance, a scanned receipt mid-review, and the squad all square](media/app/session-bubble-field.png) | ![Home — net balance across every hangout, with each hangout listed](media/app/home.png) | ![Activity — what you owe and what you're owed, broken down per person](media/app/activity.png) | ![Settings — appearance and accent themes, in dark mode](media/app/settings.png) |
 
-> The home view is the **live bubble field** — members as physics-driven bubbles
-> sized by their balance, the host crowned. The product is live now: the fastest way
-> to see it move is **[bupples.web.app/app](https://bupples.web.app/app)**. (The
-> images above are hand-built warm-paper mockups; device-framed captures of the
-> shipping build and a short walkthrough land next — see [media/](media/README.md).)
+> The signature view is the **live bubble field** — each member a physics-driven
+> bubble sized by their balance, the host crowned, with a scanned receipt mid-review
+> up top. Shown in dark mode; the app ships light and dark.
+
+<p align="center"><em>…and the same app, in the browser:</em></p>
+
+<p align="center"><img src="media/web/home-web.png" width="760" alt="The full Bupples web app at bupples.web.app/app, in warm-paper light mode" /></p>
 
 ## How it works
 

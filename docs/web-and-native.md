@@ -38,6 +38,8 @@ the browser and the app always agree to the cent.
 
 ## iOS widgets and Control Center
 
+<p align="center"><img src="../media/widgets/home-widget.png" width="520" alt="A Bupples home-screen widget showing the net balance and quick Activity, Join, and Create actions" /></p>
+
 A separate **WidgetKit + App Intents** extension puts Bupples on the home screen
 with **no Flutter on the home screen**:
 
