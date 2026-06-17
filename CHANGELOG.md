@@ -1,11 +1,53 @@
 # Changelog
 
-All notable changes to **Bupples**, newest first.
+All notable changes to **Bupples**, newest first. ← [Back to the README](README.md)
 
 Bupples is pre-launch: it iterates through TestFlight at marketing version
-`1.0.0`, and the **build number** (`1.0.0+N`) advances each release. Some numbers
-are skipped or interim as the sequence advances — 11 (10 → 12), and 18 / 27 —
-so they don't get their own entry below.
+`1.0.0`, and the **build number** (`1.0.0+N`) advances each release.
+
+## Latest highlights
+
+- **Multiple payers** on any bill, with cent-exact balances (Build 29).
+- **Scan a receipt, everyone claims their items live** — balances move in real
+  time before it's finalized (Build 24).
+- **Settle Up your way** — fewest-payments summary or the full who-owes-whom view
+  (Build 28).
+- **Friendly nudges** for anyone who directly owes you, with a server-written log
+  (Build 28).
+- **A faster web app** — WebAssembly renderer and a per-frame cost pass (Build 29).
+
+---
+
+## Build 29 — `1.0.0+29`
+
+Multiple payers, grouped receipts, and a faster web app.
+
+### Added
+- **Multiple payers on one bill.** _[Money-critical]_ An expense, receipt, or item
+  can now be fronted by more than one person — split it equally or set exactly what
+  each payer put in. Balances stay cent-exact everywhere, computed from each
+  person's net position (what they paid minus their share), so a payer who covered
+  exactly their own share ends up square. Existing single-payer history is
+  unchanged.
+- **An owner heads-up when a receipt is fully claimed.** Once everyone has claimed
+  their items, the receipt's owner gets a push so they can finalize or clear it —
+  separate from the "everyone's paid" alert, and fired exactly once.
+
+### Changed
+- **Several receipts stack into one tidy group.** A session with multiple receipts
+  now shows a single grouped card that opens a list, instead of crowding the screen.
+- **Turbo gains add and remove item** — full parity with normal-session receipts —
+  and reads quantities into a structured field ("2 × Burger") rather than the name.
+- **Profile actions tucked into a menu.** A person's host/remove/ban/rename actions
+  now sit in a top-right overflow menu, and **Delete Account** moved to the very
+  bottom of Settings, out of the way of everyday controls.
+
+### Improved
+- **A noticeably faster web app.** The web build now uses the WebAssembly (`skwasm`)
+  renderer and drops the browser's single most expensive per-frame cost — the
+  backdrop blur behind the nav bar and bubble field — for a near-opaque fill, with
+  avatar images decoded at display size. Smoother scrolling and interaction
+  throughout.
 
 ---
 
