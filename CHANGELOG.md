@@ -3,8 +3,129 @@
 All notable changes to **Bupples**, newest first.
 
 Bupples is pre-launch: it iterates through TestFlight at marketing version
-`1.0.0`, and the **build number** (`1.0.0+N`) advances each release. Build 11 was
-skipped in the version sequence (10 → 12).
+`1.0.0`, and the **build number** (`1.0.0+N`) advances each release. Some numbers
+are skipped or interim as the sequence advances — 11 (10 → 12), and 18 / 27 —
+so they don't get their own entry below.
+
+---
+
+## Build 28 — `1.0.0+28`
+
+Nudges, and a Settle Up you read your way.
+
+### Added
+- **Nudge someone who owes you.** A quiet **Nudge** button appears on a person's
+  profile and on their settle-up row — but *only* when they actually owe **you**
+  (the direct, pairwise debt, never a routed-through balance), never when you're
+  square, and never for an offline guest with no device. One tap sends one polite
+  reminder; they get a push that opens straight to Settle Up. A friendly
+  **per-person cooldown** means no one can be spammed.
+- **A nudges & reminders log.** Every nudge is recorded in the session log — who
+  reminded whom, and when — written **server-side** so the record can't be forged,
+  and kept even after a session is archived.
+
+### Changed
+- **Settle Up is now your view to choose.** A **Summary / Full** switch sits in the
+  top-right: *Summary* nets everyone down to the fewest payments (the default),
+  *Full* shows every direct who-owes-whom debt. The choice is **personal** — it
+  changes only how *you* read Settle Up, never the balances or what anyone owes, and
+  two people in the same session can read it differently. A small explainer makes
+  that clear, and both views reconcile to the exact same balances.
+- **Retired the shared "simplify debts" setting.** It used to be chosen once for the
+  whole session at creation; it's replaced by the personal Summary/Full view above.
+  Old sessions keep working unchanged.
+
+### Fixed
+- **A person's breakdown always adds up — live.** While a receipt is still being
+  claimed, the member detail sheet now reconciles in real time: what they paid,
+  their share, what they've settled, and what they owe stay in lockstep (it used to
+  leave out the still-being-claimed receipt, so the numbers didn't tie out). Tapping
+  a still-claiming row opens the live receipt.
+
+---
+
+## Build 26 — `1.0.0+26`
+
+Travel-ready: spend in any currency, export the trip, and remind politely.
+
+### Added
+- **Add an expense in any currency.** Picked a different currency for one expense?
+  Bupples converts it to your hangout's currency at **that day's exchange rate** and
+  **locks the rate in**, so the totals never drift later. Each person's share
+  converts cent-exactly, and the original amount + rate are kept on the expense.
+- **Export a hangout.** Share a clean **summary**, or a **CSV** of every expense and
+  payment, straight from the session log via the native share sheet (or a download
+  on the web).
+- **Friendly reminders.** Send a gentle nudge to anyone who still owes — and Bupples
+  quietly reminds you about settle-up requests that have sat waiting for
+  confirmation.
+
+### Changed
+- **A nudge to rate Bupples** after everyone's squared up — once, never pushy.
+
+---
+
+## Build 25 — `1.0.0+25`
+
+A pre-launch security hardening pass.
+
+### Changed
+- **Settle-up requests are verified end-to-end on the server.** Recording "I paid"
+  now routes through a trusted Cloud Function that checks both people really are
+  members and derives the creditor itself, so a settle-up can't be forged or
+  self-accepted — closing the door on ledger tampering before launch.
+- **Tightened security across balances, accounts and shared data** after structured
+  adversarial audits — stricter rules, rate-limited joins, trimmed logs, and
+  hardened content-security headers.
+- **Popups and sheets are correctly sized** on tablet and desktop web (no more stray
+  full-width frame behind a sheet).
+
+---
+
+## Build 24 — `1.0.0+24`
+
+Live balances, shared edits, and a What's New you can read in the app.
+
+### Added
+- **Receipt claims move everyone's balances live.** As people tick the items they
+  had, the session's balances update in real time *before* the receipt is finalised
+  — so you can watch a split come together, and it's counted exactly once when it
+  lands.
+- **Suggest a fix on a Turbo split.** Turbo gains the same editing system as session
+  receipts: the owner edits items, names, quantities, prices, tax, service and
+  discount; anyone else can suggest a correction the owner approves or declines — all
+  in a tamper-evident log, and locked once it's paid.
+- **A full What's New history** lives in Settings — every release as a collapsible
+  card, newest first.
+
+### Changed
+- **Roomier layouts on tablet and desktop web** — a comfortable centred column that
+  grows with the window instead of a stretched phone.
+- **Every receipt's history shows in the session log** — uploaded, shared, corrected,
+  added to balances, paid — so the record behind an expense is always there.
+- **A branded loading screen on the web** instead of a blank page on first load.
+
+### Fixed
+- **More accurate split math** when a receipt carries extra charges.
+
+---
+
+## Builds 18–23 — `1.0.0+18` … `1.0.0+23`
+
+A run of web fixes and widget refinements between the native-widgets release and
+the live-balances pass:
+
+- **Web sign-in & links that work** — Continue with Google in the browser, join
+  links that drop you straight into the session, and Turbo showing your items
+  correctly.
+- **Profile photos on the web**, smoother responsive scaling across phones and
+  tablets, and the real Bupples icon in the web app.
+- **What's New, in the app** — see exactly what changed each update.
+- **Crash reporting and update prompts** so issues get squashed faster and you know
+  when there's something new.
+- **Widget polish** — the app's typeface, a refined dark mode, and clearer handling
+  of reported content.
+- Tightened security and privacy under the hood throughout.
 
 ---
 

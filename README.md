@@ -107,8 +107,10 @@ you settle up.
 - 🧾 **Collaborative receipts** — inside a normal session, upload a receipt (scan
   it or type the items). The person who paid **reviews and confirms** the scan,
   then **everyone claims the items they had in real time** by tapping the row
-  (shared items split evenly). Bupples turns it into one exact-split expense — tax,
-  service and **discounts** included — and surfaces who owes the payer. Settling is
+  (shared items split evenly) — and **everyone's balances move live as items are
+  claimed**, before the receipt is even finalised. Bupples turns it into one
+  exact-split expense — tax, service and **discounts** included — and surfaces who
+  owes the payer (counted exactly once when it lands). Settling is
   tracked **per item**: each person ticks off the items they've actually paid for,
   and the "everyone's settled" nudge fires only once **every owed item** is paid —
   with its expense + breakdown kept in the log.
@@ -136,9 +138,22 @@ you settle up.
 - 💸 **Transfer details** — attach **how to pay you** (method + handle + an
   optional QR/screenshot) to your profile, so anyone who owes you knows exactly
   where to send it — in both Turbo and regular sessions.
-- 🤝 **Smart settle-up** — minimal **"who-pays-whom" debt simplification**
-  (≤ N−1 transfers), via a request → confirm → undo flow, with optional
-  **receipt-photo proof** attached to each transfer.
+- 🤝 **Smart settle-up, your way** — Bupples nets the group into the **fewest
+  payments** (≤ N−1 transfers) by default, and a personal **Summary / Full** switch
+  lets you flip to the exact **who-owes-whom** breakdown — *your* view only, never
+  anyone else's and never the balances. Settling runs request → confirm → undo, with
+  optional **receipt-photo proof** on each transfer.
+- 🔔 **Nudges that stay friendly** — a quiet **Nudge** appears only on someone who
+  **directly owes you** (never a routed-through balance, never an offline guest, never
+  when you're square); one tap sends one polite reminder that opens straight to Settle
+  Up, with a **per-person cooldown** so no one gets spammed and a **server-written
+  log** of who reminded whom that can't be forged.
+- 💱 **Spend in any currency** — add an expense in a different currency and Bupples
+  converts it to the hangout's currency at **that day's rate**, **locked in** so the
+  totals never drift; each share converts cent-exactly, and the original amount + rate
+  ride along on the expense.
+- 📤 **Export a hangout** — share a clean **summary** or a **CSV** of every expense
+  and payment from the session log (native share sheet on mobile, download on web).
 - 🔔 **Push notifications** — real-time alerts when someone adds an expense,
   requests a settle-up, joins your session, **uploads a receipt to claim**, or
   when **everyone's paid** a receipt or Turbo split (so the owner can clean it up).
@@ -161,7 +176,9 @@ you settle up.
 - 🛡️ **Trust & safety** — **report** user-generated content (receipts) for
   moderation, and a terms/abuse policy — built to App Store UGC guidelines.
 - 📊 **Per-member records** — tap a bubble for a breakdown of what they paid vs.
-  owe and their full expense history.
+  owe, what they've settled, and their full expense history — **reconciling in real
+  time**, even while a receipt is still being claimed — with a one-tap **Nudge** when
+  they owe you.
 - ♿ **Accessibility & polish** — haptics, reduce-motion support, and a bundled
   type system for offline-safe, flash-free first frames.
 
@@ -173,7 +190,7 @@ you settle up.
 |-------|---------|
 | **App** | Flutter · Dart (iOS · Android · Web) |
 | **State** | Riverpod (StreamProvider / Provider.family + controllers) |
-| **Backend** | Firebase — Cloud Firestore (real-time sync), Auth (Anonymous · Google · Apple), **Cloud Functions** (push triggers, account deletion, Apple token revocation, **receipt scanning**), **Cloud Messaging** (push), **Cloud Storage** (receipts & payment QRs), **App Check**, Analytics |
+| **Backend** | Firebase — Cloud Firestore (real-time sync), Auth (Anonymous · Google · Apple), **Cloud Functions** (push triggers, server-verified settle-up, account deletion, Apple token revocation, **receipt scanning**, **daily FX rates**, **settle-up reminders + nudges**), **Cloud Messaging** (push), **Cloud Storage** (receipts & payment QRs), **App Check**, Analytics + Crashlytics |
 | **Receipt AI** | **Gemini 2.5 Flash** via **Vertex AI** — structured receipt understanding (line-items + tax / service / **discount** / total, plus **store name** and **currency**, as JSON via a response schema) behind a callable function; the split math that consumes it is pure, unit-tested Dart |
 | **Functions** | Node.js · TypeScript (Firebase Cloud Functions v2) |
 | **Web** | The **full Flutter web app** on Firebase Hosting (App Check via reCAPTCHA), with link hand-off from shared session / Turbo links; **plus** a lightweight **Firebase JS SDK + anonymous-auth** claim page so friends without the app can join a Turbo split with no install |
@@ -269,6 +286,12 @@ public/          Firebase Hosting — full Flutter web build at /app, the no-app
   summed: the home + activity heroes lead with your default currency and surface
   every other one as its own figure, so a `$` net and an `RM` net are never
   illegally added.
+- **Multi-currency without ledger drift** — an expense entered in another currency is
+  converted to the session currency **at entry**, at that day's rate (a cached
+  daily-rates Cloud Function over ECB / Frankfurter), so the stored ledger stays
+  single-currency and never re-floats. Each person's weight is converted with the
+  **same cent-exact distributor** as the split, and the original amount, currency and
+  rate are kept on the expense for display and editing — editing re-bases cleanly.
 - **Privacy-preserving deletion** — account deletion runs server-side as an
   **anonymise**, not a purge: a transaction rewrites the leaving user's member
   entries to "Deleted user" and drops their uid + pay handles, while leaving the
@@ -301,6 +324,17 @@ public/          Firebase Hosting — full Flutter web build at /app, the no-app
   correct. Pre-settle, edits are **owner-approved correction requests** logged to a
   tamper-evident history; post-settle the receipt **locks**. The expense and its
   breakdown stay in the log even after the owner archives it.
+- **Live balance previews + read-side settle views** — an unfinalised receipt being
+  claimed contributes a *preview* expense to the balance math (built from the same
+  settlement the finaliser uses, dedup-guarded so it's counted once), so the whole
+  table's balances — and each person's paid/share/owed breakdown — move in real time
+  as items are ticked, then snap to the identical figure when it lands. The personal
+  **Summary / Full** settle-up view is a pure read-side toggle over that one ledger,
+  so both views reconcile to the cent. **Nudge eligibility always reads the direct
+  pairwise debt** (never the simplified plan, so you can't nudge someone a routed
+  balance only *appears* to send your way), and each nudge is appended to a
+  **client-unwritable event log** by the reminder Cloud Function — so the
+  who-nudged-whom record, like the rest of the audit trail, can't be forged.
 - **Item-level paid tracking** — settle-up is recorded per line, not per person: a
   claim carries the set of item ids actually paid, and the "fully settled" state is
   decided **server-side** — true only when every split item is claimed *and* every
@@ -317,10 +351,12 @@ public/          Firebase Hosting — full Flutter web build at /app, the no-app
   reactive cluster, with a ticker that sleeps when idle/backgrounded.
 - **Serverless push pipeline** — Firestore-triggered Cloud Functions fan out FCM
   notifications to a session's members (new expense, settle-up request, join,
-  **receipt uploaded**, and the **item-exact "everyone's paid"** nudge), each
-  carrying a **deep-link payload** that opens straight to the relevant receipt,
-  split, or session, with per-device token management that re-binds on account
-  switch and prunes stale tokens.
+  **receipt uploaded**, the **item-exact "everyone's paid"** nudge, and a **polite
+  "you still owe" reminder** — sent on demand or on a daily schedule for requests
+  left unconfirmed), each carrying a **deep-link payload** that opens straight to the
+  relevant receipt, split, settle-up, or session, with per-device token management
+  that re-binds on account switch and prunes stale tokens. Reminders are
+  **throttled per recipient** server-side so they can't be spammed.
 - **Native iOS widgets & Control Center** — a separate WidgetKit + App Intents
   extension (no Flutter on the home screen): the app writes a compact balance
   snapshot to a shared **App Group**, which the widgets read to render the full
@@ -363,7 +399,7 @@ public/          Firebase Hosting — full Flutter web build at /app, the no-app
 
 ## Status
 
-**Built for iPhone** and on **TestFlight** now (build **`1.0.0+17`** — see
+**Built for iPhone** and on **TestFlight** now (build **`1.0.0+28`** — see
 **[CHANGELOG.md](CHANGELOG.md)** for the build-by-build history), preparing for
 **App Store** submission, with native **home-screen widgets** and **Control Center**
 actions. The **full web app** is live on Firebase Hosting at
