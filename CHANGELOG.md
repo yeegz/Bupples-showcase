@@ -7,14 +7,79 @@ Bupples is pre-launch: it iterates through TestFlight at marketing version
 
 ## Latest highlights
 
+- **A chat in every session** — messages, photos, `@mentions`, and every expense,
+  receipt & payment as a tappable **event card woven into the timeline** (Builds 43–46).
+- **A softer, more premium look** — continuous-curve "squircle" cards, sheets, and
+  bubbles, plus an accessibility pass (screen-reader bubbles, ≥44pt targets) (Build 46).
+- **See exactly how your share was calculated** — a per-person receipt breakdown that
+  reconciles to the cent, for normal *and* Turbo receipts (Build 46).
+- **Friends, `@handles` & Pay Now** — add friends, start a split in a tap, and settle
+  with someone's copy-to-tap details or a **DuitNow / payment QR** (Builds 31–32).
 - **Multiple payers** on any bill, with cent-exact balances (Build 29).
-- **Scan a receipt, everyone claims their items live** — balances move in real
-  time before it's finalized (Build 24).
-- **Settle Up your way** — fewest-payments summary or the full who-owes-whom view
-  (Build 28).
-- **Friendly nudges** for anyone who directly owes you, with a server-written log
-  (Build 28).
-- **A faster web app** — WebAssembly renderer and a per-frame cost pass (Build 29).
+- **Scan a receipt, everyone claims their items live** — balances move in real time
+  before it's finalized (Build 24).
+
+---
+
+## Build 46 — `1.0.0+46`
+
+A premium refinement pass — and chat becomes a living session timeline.
+
+### Added
+- **Chat event cards, woven into the conversation.** Every expense, scanned receipt,
+  submitted/confirmed/rejected **payment**, and expense dispute now appears as a
+  compact card at its real position in the chat timeline — never pinned at the top —
+  and each one taps through to its detail (the expense, the receipt, or the transfer).
+- **"How your share was calculated."** Claim items on a receipt and expand a clear,
+  per-person breakdown — the items you picked, then the proportional discount / tax /
+  service allocation — that **reconciles to the cent**. One shared engine powers it
+  for both normal and Turbo receipts.
+- **DuitNow / payment QR in your profile.** Add a payment QR once and it shows up
+  whenever someone goes to pay you, alongside your copy-to-tap details.
+
+### Changed
+- **A softer, more cohesive shape language.** Cards, sheets, and chat bubbles now use
+  continuous-curve "squircles" throughout, on a refined green tonal palette.
+- **No buzz for a chat you're already reading.** Notifications are suppressed for the
+  session you're currently viewing; other chats still notify, and messages still mark
+  as read.
+- **Tabs return to the top** when you switch away and back, so a tab never strands you
+  mid-scroll. In-progress forms are never interrupted.
+
+### Improved
+- **Accessibility.** Each member bubble is now a labelled, focusable element for
+  screen readers; avatars, amounts, and status chips carry meaningful labels; touch
+  targets clear 44pt; money renders in tabular figures; and reduce-motion is honoured
+  app-wide. Status colours are never the only cue.
+
+---
+
+## Builds 30–45 — `1.0.0+30` … `1.0.0+45`
+
+Identity, friends, and a real-time chat — Bupples grows from a splitter into a social
+money app. (Spans several TestFlight builds.)
+
+### Added
+- **A chat in every session.** Real-time messages and photos, `@mentions` that notify,
+  replies, and read receipts — the conversation living right next to the split.
+- **Friends & profiles.** Claim a `@handle`, build a friends list, and start a split
+  with friends in a tap. Private money requests go **person-to-person**, never to a
+  public feed.
+- **Pay Now.** Settling someone leads with *how* to pay them — their copy-to-tap
+  payment details and an optional QR — while Bupples stays a calculator, not a wallet.
+- **Multi-currency.** Spend in another currency and Bupples converts at that day's
+  locked-in rate, keeping the ledger exact.
+- **Export & trip recap** (CSV + share) and **scheduled reminders** for aging debts.
+
+### Changed
+- **The Pip mascot, everywhere.** One animated character (a hand-rolled `CustomPainter`)
+  that reacts to context — calm on money surfaces, lively on social ones.
+- **Removed the iOS Control Center controls** to focus the native surface on the
+  home-screen widgets.
+
+### Improved
+- **Cross-device fit & web responsiveness**, a production hardening pass (account-scoping,
+  money invariants, privacy-preserving deletion), and broad performance work.
 
 ---
 

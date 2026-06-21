@@ -11,18 +11,19 @@ group to the cent — even friends without the app.
 
 [![Flutter · Dart](https://img.shields.io/badge/Flutter-Dart-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
 [![Firebase](https://img.shields.io/badge/Backend-Firebase-FFCA28?logo=firebase&logoColor=black)](https://firebase.google.com)
-[![iOS — TestFlight](https://img.shields.io/badge/iOS-on%20TestFlight-2F6F4E?logo=apple&logoColor=white)](CHANGELOG.md)
+[![App Store — in review](https://img.shields.io/badge/App%20Store-in%20review-2F6F4E?logo=apple&logoColor=white)](CHANGELOG.md)
+[![Google Play — closed testing](https://img.shields.io/badge/Google%20Play-closed%20testing-2F6F4E?logo=googleplay&logoColor=white)](CHANGELOG.md)
 [![Web — live](https://img.shields.io/badge/Web-live-2F6F4E?logo=googlechrome&logoColor=white)](https://bupples.web.app/app)
 [![License](https://img.shields.io/badge/License-Proprietary-8B6F3E)](LICENSE)
 
-**[bupples.web.app](https://bupples.web.app)** · the full app runs in the browser at **[/app](https://bupples.web.app/app)** · on **TestFlight** for iPhone, App Store soon
+**[bupples.web.app](https://bupples.web.app)** · the full app runs in the browser at **[/app](https://bupples.web.app/app)** · **in App Store review** for iPhone · **closed testing on Google Play** for Android
 
 </div>
 
 > A solo-designed and -built product: the Flutter app, the Firebase backend and
-> Cloud Functions, the native iOS widget + Control Center extension, and the web
-> app. **Source is private while Bupples prepares for launch** — happy to share
-> read-only access with reviewers, recruiters, or collaborators on request.
+> Cloud Functions, the native iOS home-screen widgets, and the web app. **Source is
+> private while Bupples prepares for launch** — happy to share read-only access with
+> reviewers, recruiters, or collaborators on request.
 
 ---
 
@@ -64,6 +65,7 @@ Not "a better Splitwise" — a different mechanism. Most splitters divide a bill
 | **Tax & service** | Split evenly | Ride **proportionally** to what each person ordered |
 | **Who paid** | One payer | **Multiple payers** per bill, cent-exact |
 | **No-app friends** | Need an account | **Claim from a browser**, no install |
+| **Staying in sync** | A separate group chat | **Chat built into the session** — every expense, receipt & payment lands as a card in the timeline |
 | **Chasing** | Awkward texts | One quiet, friendly **nudge** |
 
 ## Features
@@ -82,10 +84,25 @@ Not "a better Splitwise" — a different mechanism. Most splitters divide a bill
 - 🤝 **Smart settle-up** — the **fewest payments** by default, or flip to the full
   who-owes-whom view (your eyes only, never the balances).
   → [settle-up views](docs/receipt-splitting.md#settle-up-views)
+- 💬 **A chat in every session** — messages, photos, and `@mentions` live alongside
+  the split, and every expense, scanned receipt, and payment appears as a tappable
+  **event card in the timeline** (not pinned at the top), so the group reads as one
+  living thread. Read receipts, replies, and no buzz for a chat you're already in.
+- 🧮 **See exactly how your share was calculated** — a per-person breakdown (items
+  you picked, then the proportional tax / service / discount allocation) that
+  **reconciles to the cent** — the same engine for normal and Turbo receipts.
+- 👋 **Friends & profiles** — claim a `@handle`, add friends, and start a split with
+  them in a tap; private money requests go person-to-person, not to a public feed.
+- 💳 **Pay Now** — settling someone leads with *how* to pay them: their copy-to-tap
+  details and a **DuitNow / payment QR** you scan in your own bank app. Bupples
+  records the settlement; it never moves the money.
 - 🔔 **Friendly nudges** — a quiet reminder that appears only on someone who
   *directly* owes you, with a per-person cooldown and a server-written log.
-- 📲 **iOS widgets & Control Center** — a full WidgetKit family plus two iOS 18
-  controls, with Pip drawn natively. → [web & native](docs/web-and-native.md#ios-widgets-and-control-center)
+- ♿ **Accessible by design** — screen-reader labels across the bubble field and
+  money rows, non-colour-only state, ≥44pt targets, tabular figures, and a
+  reduce-motion path honoured app-wide.
+- 📲 **iOS home-screen widgets** — a full WidgetKit family with Pip drawn natively
+  in SwiftUI. → [web & native](docs/web-and-native.md)
 - 🌐 **Full web app** — the whole app in the browser at
   [bupples.web.app/app](https://bupples.web.app/app), App Check attested like mobile.
 - 🔐 **Privacy-first accounts** — anonymous by default; Google or Apple to back up;
@@ -121,8 +138,8 @@ The decisions that were hard, and why they went the way they did. Depth lives in
   intact, with Apple token revocation. → [privacy & deletion](docs/privacy-and-deletion.md)
 - **One codebase, three surfaces.** The same Flutter app compiles to the iPhone
   build, the full web app (WebAssembly `skwasm` renderer, tuned to drop the browser's
-  most expensive per-frame work), and feeds a native iOS widget + Control Center
-  extension via a shared App Group with cold-start deep-link routing.
+  most expensive per-frame work), and feeds a native iOS home-screen widget via a
+  shared App Group with cold-start deep-link routing.
   → [web & native](docs/web-and-native.md)
 - **Receipt understanding via Gemini.** A callable Cloud Function runs **Gemini 2.5
   Flash on Vertex AI**, returning structured line-items + tax / service / discount /
@@ -139,7 +156,7 @@ The decisions that were hard, and why they went the way they did. Depth lives in
 | **Receipt AI** | Gemini 2.5 Flash via Vertex AI — structured receipt JSON behind a callable function; the split math that consumes it is pure, unit-tested Dart |
 | **Functions** | Node.js · TypeScript (Cloud Functions v2) |
 | **Web** | The full Flutter web app on Firebase Hosting (WebAssembly renderer), plus a lightweight JS SDK + anonymous-auth claim page for friends without the app |
-| **iOS** | Swift Package Manager (no CocoaPods); WidgetKit + App Intents (Pip in SwiftUI `Canvas`); Universal Links + deep links |
+| **iOS** | Swift Package Manager (no CocoaPods); WidgetKit home-screen widgets (Pip in SwiftUI `Canvas`); Universal Links + deep links |
 | **Design** | Warm-paper system — Fraunces + DM Sans, botanical-green accents, light + dark; the **Pip** mascot as an animated `CustomPainter`; a hand-rolled soft-body bubble simulation |
 
 ## Architecture
@@ -163,18 +180,17 @@ app, and the data source behind the native iOS extension.
 
 ## Status
 
-Live on **TestFlight** at build **`1.0.0+29`** ([CHANGELOG](CHANGELOG.md)), preparing
-for App Store submission. The full web app is live at
-[bupples.web.app/app](https://bupples.web.app/app). The app stays the better
-experience, and Android is on the way.
+Build **`1.0.0+46`** ([CHANGELOG](CHANGELOG.md)) — **submitted for App Store review**
+and in **closed testing on Google Play**, with the full web app live at
+[bupples.web.app/app](https://bupples.web.app/app) and the iPhone build on TestFlight.
 
 | Surface | Status |
 |---------|--------|
-| iPhone app | ✅ Live on TestFlight (`1.0.0+29`) |
+| App Store (iPhone) | 🚦 Submitted for review (`1.0.0+46`) |
+| TestFlight (iPhone) | ✅ Live (`1.0.0+46`) |
 | Web app | ✅ Live at [bupples.web.app/app](https://bupples.web.app/app) |
-| iOS widgets + Control Center | ✅ Shipping |
-| App Store | 🚧 Preparing submission |
-| Android | 📋 Planned |
+| Google Play (Android) | 🧪 Closed testing (`1.0.0+46`) |
+| iOS home-screen widgets | ✅ Shipping |
 
 ---
 
