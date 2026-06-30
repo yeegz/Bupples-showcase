@@ -78,8 +78,9 @@ Not "a better Splitwise" — a different mechanism. Most splitters divide a bill
 - 👛 **Multiple payers** — one bill fronted by more than one person, split equally
   or by exact amounts, with balances that stay cent-exact.
   → [the money model](docs/receipt-splitting.md#multiple-payers-build-29)
-- ⚡ **Turbo split** — a fast one-off: snap, everyone claims, see who owes whom —
-  and friends without the app claim from a browser.
+- ⚡ **Turbo split** — a fast one-off: scan, everyone claims their items, then a
+  **mark → pay → host-confirms** flow settles it — your transfer details (and QR)
+  ride along, and friends without the app claim from a browser.
   → [web & native](docs/web-and-native.md#no-app-participation)
 - 🤝 **Smart settle-up** — the **fewest payments** by default, or flip to the full
   who-owes-whom view (your eyes only, never the balances).
@@ -87,7 +88,11 @@ Not "a better Splitwise" — a different mechanism. Most splitters divide a bill
 - 💬 **A chat in every session** — messages, photos, and `@mentions` live alongside
   the split, and every expense, scanned receipt, and payment appears as a tappable
   **event card in the timeline** (not pinned at the top), so the group reads as one
-  living thread. Read receipts, replies, and no buzz for a chat you're already in.
+  living thread. WhatsApp-style delivery: sent → delivered → **Seen by N** with
+  reader avatars, replies, and no buzz for a chat you're already in.
+- ✉️ **Direct messages** — a 1:1 inbox alongside the group chats: message any friend
+  from the hub, with photos, replies, and the same sent / delivered / seen receipts,
+  so a quick "you around to settle?" never needs a separate app.
 - 🧮 **See exactly how your share was calculated** — a per-person breakdown (items
   you picked, then the proportional tax / service / discount allocation) that
   **reconciles to the cent** — the same engine for normal and Turbo receipts.
@@ -157,7 +162,7 @@ The decisions that were hard, and why they went the way they did. Depth lives in
 | **Functions** | Node.js · TypeScript (Cloud Functions v2) |
 | **Web** | The full Flutter web app on Firebase Hosting (WebAssembly renderer), plus a lightweight JS SDK + anonymous-auth claim page for friends without the app |
 | **iOS** | Swift Package Manager (no CocoaPods); WidgetKit home-screen widgets (Pip in SwiftUI `Canvas`); Universal Links + deep links |
-| **Design** | Warm-paper system — Fraunces + DM Sans, botanical-green accents, light + dark; the **Pip** mascot as an animated `CustomPainter`; a hand-rolled soft-body bubble simulation |
+| **Design** | A token-driven theme — Fraunces + DM Sans, **System / Light / Dark** that follows the phone, seven accent themes, and an optional gradient atmosphere; the **Pip** mascot as an animated `CustomPainter`; a hand-rolled soft-body bubble simulation |
 
 ## Architecture
 
@@ -180,16 +185,16 @@ app, and the data source behind the native iOS extension.
 
 ## Status
 
-Build **`1.0.0+46`** ([CHANGELOG](CHANGELOG.md)) — **submitted for App Store review**
-and in **closed testing on Google Play**, with the full web app live at
-[bupples.web.app/app](https://bupples.web.app/app) and the iPhone build on TestFlight.
+Build **`1.0.0+79`** ([CHANGELOG](CHANGELOG.md)) — on **TestFlight** and being resubmitted
+for **App Store review**, in **closed testing on Google Play**, with the full web app live
+at [bupples.web.app/app](https://bupples.web.app/app).
 
 | Surface | Status |
 |---------|--------|
-| App Store (iPhone) | 🚦 Submitted for review (`1.0.0+46`) |
-| TestFlight (iPhone) | ✅ Live (`1.0.0+46`) |
+| App Store (iPhone) | 🚦 Resubmitting for review (`1.0.0+79`) |
+| TestFlight (iPhone) | ✅ Live (`1.0.0+79`) |
 | Web app | ✅ Live at [bupples.web.app/app](https://bupples.web.app/app) |
-| Google Play (Android) | 🧪 Closed testing (`1.0.0+46`) |
+| Google Play (Android) | 🧪 Closed testing |
 | iOS home-screen widgets | ✅ Shipping |
 
 ---

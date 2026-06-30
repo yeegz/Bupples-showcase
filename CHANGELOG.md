@@ -7,17 +7,53 @@ Bupples is pre-launch: it iterates through TestFlight at marketing version
 
 ## Latest highlights
 
+- **Direct messages + group read receipts** — a 1:1 inbox beside the session chats,
+  and WhatsApp-style sent → delivered → **Seen by N** receipts in both (Builds 47–79).
+- **Turbo split, end to end** — claim your items, **pay**, and the host **confirms** —
+  with your transfer details and QR carried through (Builds 47–79).
+- **A theme that follows your phone** — System / Light / Dark, seven accent themes,
+  and an optional gradient atmosphere as a separate toggle (Builds 47–79).
 - **A chat in every session** — messages, photos, `@mentions`, and every expense,
   receipt & payment as a tappable **event card woven into the timeline** (Builds 43–46).
-- **A softer, more premium look** — continuous-curve "squircle" cards, sheets, and
-  bubbles, plus an accessibility pass (screen-reader bubbles, ≥44pt targets) (Build 46).
 - **See exactly how your share was calculated** — a per-person receipt breakdown that
   reconciles to the cent, for normal *and* Turbo receipts (Build 46).
 - **Friends, `@handles` & Pay Now** — add friends, start a split in a tap, and settle
   with someone's copy-to-tap details or a **DuitNow / payment QR** (Builds 31–32).
 - **Multiple payers** on any bill, with cent-exact balances (Build 29).
-- **Scan a receipt, everyone claims their items live** — balances move in real time
-  before it's finalized (Build 24).
+
+---
+
+## Builds 47–79 — `1.0.0+79`
+
+Messaging grows up, Turbo gets a real pay flow, and the theme learns to follow the phone.
+
+### Added
+- **Direct messages.** A 1:1 inbox in the messages hub — message any friend, with
+  photos, replies, and the same delivery/read receipts as the session chat.
+- **Group read receipts.** A session message goes sent → delivered → **Seen by N**,
+  with the avatars of who's read it — per-member, not per-message, so it stays cheap.
+- **Turbo: mark → pay → confirm.** A claimant marks their items, sees the breakdown
+  and the host's transfer details + QR, taps pay, and the **host confirms receipt**;
+  the host can then delete the settled split. The host never pays or confirms their
+  own share.
+- **System / Light / Dark theme.** Brightness now follows the phone on **System**
+  (iOS + Android) and rebuilds when the OS flips; the gradient atmosphere became a
+  separate on/off toggle, independent of light/dark.
+- **OS notification prompt at the right moment** — requested at the end of onboarding
+  and as a shell-level catch-all, so every signed-in user is asked (Android 13+ and iOS).
+
+### Changed
+- **Payment details always reach the payer.** Your "how to pay me" default (including
+  the QR) now re-syncs to every session and hosted Turbo split whenever it changes —
+  so "hasn't added payment details" no longer shows when you actually have.
+- **Native-feeling navigation.** Left-edge **swipe-to-go-back** app-wide, and tapping
+  outside a field dismisses the keyboard.
+
+### Fixed
+- Photos in the session chat (a rule had silently rejected image/reply/mention
+  messages); the raised Pip nav button sitting too low on iPhone; Pip's eyes washing
+  out white-on-white in light mode; long Pip suggestions shrinking to an unreadable
+  size; and a session budget that counted other currencies.
 
 ---
 
