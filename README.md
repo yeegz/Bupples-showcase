@@ -11,17 +11,17 @@ group to the cent — even friends without the app.
 
 [![Flutter · Dart](https://img.shields.io/badge/Flutter-Dart-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
 [![Firebase](https://img.shields.io/badge/Backend-Firebase-FFCA28?logo=firebase&logoColor=black)](https://firebase.google.com)
-[![App Store — live](https://img.shields.io/badge/App%20Store-live-2F6F4E?logo=apple&logoColor=white)](https://bupples.web.app/app)
-[![Google Play — live](https://img.shields.io/badge/Google%20Play-live-2F6F4E?logo=googleplay&logoColor=white)](https://bupples.web.app/app)
-[![Web — live](https://img.shields.io/badge/Web-live-2F6F4E?logo=googlechrome&logoColor=white)](https://bupples.web.app/app)
+[![App Store — live](https://img.shields.io/badge/App%20Store-live-2F6F4E?logo=apple&logoColor=white)](https://apps.apple.com/us/app/bupples/id6777620291)
+[![Google Play — live](https://img.shields.io/badge/Google%20Play-live-2F6F4E?logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.bupples.bupples)
+[![Browser claim — live](https://img.shields.io/badge/Browser%20claim-live-2F6F4E?logo=googlechrome&logoColor=white)](https://bupples.web.app/t)
 [![License](https://img.shields.io/badge/License-Proprietary-8B6F3E)](LICENSE)
 
-**[bupples.web.app](https://bupples.web.app)** · the full app runs in the browser at **[/app](https://bupples.web.app/app)** · **on the App Store** for iPhone · **on Google Play** for Android
+**[On the App Store](https://apps.apple.com/us/app/bupples/id6777620291)** for iPhone · **[on Google Play](https://play.google.com/store/apps/details?id=com.bupples.bupples)** for Android · friends without the app claim a Turbo Split at **[bupples.web.app](https://bupples.web.app)**, right in the browser
 
 </div>
 
 > A solo-designed and -built product: the Flutter app, the Firebase backend and
-> Cloud Functions, the native iOS home-screen widgets, and the web app. **Source is
+> Cloud Functions, the native iOS home-screen widgets, and the no-app browser claim flow. **Source is
 > private while Bupples prepares for launch** — happy to share read-only access with
 > reviewers, recruiters, or collaborators on request.
 
@@ -36,10 +36,6 @@ group to the cent — even friends without the app.
 > The signature view is the **live bubble field** — each member a physics-driven
 > bubble sized by their balance, the host crowned, with a scanned receipt mid-review
 > up top. Shown in dark mode; the app ships light and dark.
-
-<p align="center"><em>…and the same app, in the browser:</em></p>
-
-<p align="center"><img src="media/web/home-web.png" width="760" alt="The full Bupples web app running in the browser at bupples.web.app/app" /></p>
 
 ## How it works
 
@@ -109,8 +105,9 @@ Not "a better Splitwise" — a different mechanism. Most splitters divide a bill
   reduce-motion path honoured app-wide.
 - 📲 **iOS home & lock-screen widgets** — a full WidgetKit family (home and lock
   screen) with Pip drawn natively in SwiftUI, plus Android home-screen widgets. → [web & native](docs/web-and-native.md)
-- 🌐 **Full web app** — the whole app in the browser at
-  [bupples.web.app/app](https://bupples.web.app/app), behind the same Firebase Auth and Security Rules as mobile.
+- 🌐 **Claim from any browser** — a friend without the app opens the Turbo Split
+  link and claims their items with no install, behind the same Firebase Auth and
+  Security Rules as the app. → [web & native](docs/web-and-native.md#no-app-participation)
 - 🔐 **Privacy-first accounts** — anonymous by default; Google or Apple to back up;
   deletion **anonymizes instead of erasing**, so no one can delete their way out of
   a debt. → [privacy & deletion](docs/privacy-and-deletion.md)
@@ -142,10 +139,10 @@ The decisions that were hard, and why they went the way they did. Depth lives in
 - **Privacy-preserving deletion.** Account deletion runs server-side as an
   **anonymize, not a purge**, leaving the shared records other people depend on
   intact, with Apple token revocation. → [privacy & deletion](docs/privacy-and-deletion.md)
-- **One codebase, three surfaces.** The same Flutter app compiles to the iPhone
-  build, the full web app (WebAssembly `skwasm` renderer, tuned to drop the browser's
-  most expensive per-frame work), and feeds a native iOS home-screen widget via a
-  shared App Group with cold-start deep-link routing.
+- **One codebase, two app targets + a widget.** The same Flutter app compiles to
+  the iPhone and Android builds and feeds a native iOS home-screen widget via a
+  shared App Group with cold-start deep-link routing; a separate lightweight web
+  page lets no-app friends claim a Turbo Split in the browser.
   → [web & native](docs/web-and-native.md)
 - **Receipt understanding via Gemini.** A callable Cloud Function runs **Gemini 2.5
   Flash on Vertex AI**, returning structured line-items + tax / service / discount /
@@ -161,7 +158,7 @@ The decisions that were hard, and why they went the way they did. Depth lives in
 | **Backend** | Firebase — Firestore (real-time sync), Auth (Anonymous · Google · Apple), Cloud Functions, Cloud Messaging, Cloud Storage, App Check, Analytics + Crashlytics |
 | **Receipt AI** | Gemini 2.5 Flash via Vertex AI — structured receipt JSON behind a callable function; the split math that consumes it is pure, unit-tested Dart |
 | **Functions** | Node.js · TypeScript (Cloud Functions v2) |
-| **Web** | The full Flutter web app on Firebase Hosting (WebAssembly renderer), plus a lightweight JS SDK + anonymous-auth claim page for friends without the app |
+| **Web** | A lightweight JS + anonymous-auth claim page on Firebase Hosting so friends **without the app** claim their Turbo Split share from a browser (the app itself ships on iOS + Android) |
 | **iOS** | Swift Package Manager (no CocoaPods); WidgetKit home-screen widgets (Pip in SwiftUI `Canvas`); Universal Links + deep links |
 | **Design** | A token-driven theme — Fraunces + Hanken Grotesk, **System / Light / Dark** that follows the phone, seven accent themes, and an optional gradient atmosphere; the **Pip** mascot as an animated `CustomPainter`; a hand-rolled soft-body bubble simulation |
 
@@ -178,22 +175,22 @@ app, and the data source behind the native iOS extension.
 
 | Doc | What's inside |
 |-----|---------------|
-| [Architecture](docs/architecture.md) | Layers, the system diagram, the serverless push pipeline, three surfaces from one codebase |
+| [Architecture](docs/architecture.md) | Layers, the system diagram, the serverless push pipeline, iOS + Android from one codebase |
 | [Receipt splitting & the money model](docs/receipt-splitting.md) | Cent-safe math, the multi-payer net-position ledger, collaborative real-time receipts, Dart ↔ JS parity |
 | [Privacy & deletion](docs/privacy-and-deletion.md) | Anonymize-not-erase, soft-archive, server-authoritative trust, Security Rules |
-| [Web & native](docs/web-and-native.md) | The full web app + performance pass, the no-app claim flow, iOS widgets + Control Center |
+| [Web & native](docs/web-and-native.md) | The no-app browser claim flow, iOS widgets + Control Center |
 | [App Store readiness](docs/app-store-readiness.md) | TestFlight status, compliance, quality checklist |
 
 ## Status
 
 Build **`1.1.0+110`** ([CHANGELOG](CHANGELOG.md)) — **live on the App Store and Google Play**,
-with the full web app running in the browser at [bupples.web.app/app](https://bupples.web.app/app).
+with a browser claim page for no-app friends at [bupples.web.app](https://bupples.web.app).
 
 | Surface | Status |
 |---------|--------|
 | App Store (iPhone) | ✅ Live (`1.1.0+110`) |
 | TestFlight (iPhone) | ✅ Live (`1.1.0+110`) |
-| Web app | ✅ Live at [bupples.web.app/app](https://bupples.web.app/app) |
+| Browser Turbo claim | ✅ Live for no-app friends ([bupples.web.app](https://bupples.web.app)) |
 | Google Play (Android) | ✅ Live (`1.1.0+110`) |
 | iOS home-screen widgets | ✅ Shipping |
 
