@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="media/brand/logo.png" width="104" alt="Bupples logo — two overlapping warm-paper bubbles forming the Pip mark" />
+<img src="media/brand/logo.png" width="104" alt="Bupples logo — two overlapping mint bubbles forming the Pip mark" />
 
 # Bupples
 
@@ -11,12 +11,12 @@ group to the cent — even friends without the app.
 
 [![Flutter · Dart](https://img.shields.io/badge/Flutter-Dart-02569B?logo=flutter&logoColor=white)](https://flutter.dev)
 [![Firebase](https://img.shields.io/badge/Backend-Firebase-FFCA28?logo=firebase&logoColor=black)](https://firebase.google.com)
-[![App Store — in review](https://img.shields.io/badge/App%20Store-in%20review-2F6F4E?logo=apple&logoColor=white)](CHANGELOG.md)
-[![Google Play — closed testing](https://img.shields.io/badge/Google%20Play-closed%20testing-2F6F4E?logo=googleplay&logoColor=white)](CHANGELOG.md)
+[![App Store — live](https://img.shields.io/badge/App%20Store-live-2F6F4E?logo=apple&logoColor=white)](https://bupples.web.app/app)
+[![Google Play — live](https://img.shields.io/badge/Google%20Play-live-2F6F4E?logo=googleplay&logoColor=white)](https://bupples.web.app/app)
 [![Web — live](https://img.shields.io/badge/Web-live-2F6F4E?logo=googlechrome&logoColor=white)](https://bupples.web.app/app)
 [![License](https://img.shields.io/badge/License-Proprietary-8B6F3E)](LICENSE)
 
-**[bupples.web.app](https://bupples.web.app)** · the full app runs in the browser at **[/app](https://bupples.web.app/app)** · **in App Store review** for iPhone · **closed testing on Google Play** for Android
+**[bupples.web.app](https://bupples.web.app)** · the full app runs in the browser at **[/app](https://bupples.web.app/app)** · **on the App Store** for iPhone · **on Google Play** for Android
 
 </div>
 
@@ -39,7 +39,7 @@ group to the cent — even friends without the app.
 
 <p align="center"><em>…and the same app, in the browser:</em></p>
 
-<p align="center"><img src="media/web/home-web.png" width="760" alt="The full Bupples web app at bupples.web.app/app, in warm-paper light mode" /></p>
+<p align="center"><img src="media/web/home-web.png" width="760" alt="The full Bupples web app running in the browser at bupples.web.app/app" /></p>
 
 ## How it works
 
@@ -51,8 +51,9 @@ group to the cent — even friends without the app.
 4. **Settle up** in the fewest payments, with how-to-pay details attached. Friends
    *without the app* do it from the browser.
 
-Spend in another currency and Bupples converts it at that day's locked-in rate;
-more than one person paid and you add every payer — the ledger stays exact either way.
+Spend in another currency and Bupples keeps each currency in its own column,
+settling within it — never a guessy conversion; more than one person paid and you
+add every payer, and the ledger stays exact either way.
 
 ## What makes it different
 
@@ -106,10 +107,10 @@ Not "a better Splitwise" — a different mechanism. Most splitters divide a bill
 - ♿ **Accessible by design** — screen-reader labels across the bubble field and
   money rows, non-colour-only state, ≥44pt targets, tabular figures, and a
   reduce-motion path honoured app-wide.
-- 📲 **iOS home-screen widgets** — a full WidgetKit family with Pip drawn natively
-  in SwiftUI. → [web & native](docs/web-and-native.md)
+- 📲 **iOS home & lock-screen widgets** — a full WidgetKit family (home and lock
+  screen) with Pip drawn natively in SwiftUI, plus Android home-screen widgets. → [web & native](docs/web-and-native.md)
 - 🌐 **Full web app** — the whole app in the browser at
-  [bupples.web.app/app](https://bupples.web.app/app), App Check attested like mobile.
+  [bupples.web.app/app](https://bupples.web.app/app), behind the same Firebase Auth and Security Rules as mobile.
 - 🔐 **Privacy-first accounts** — anonymous by default; Google or Apple to back up;
   deletion **anonymizes instead of erasing**, so no one can delete their way out of
   a debt. → [privacy & deletion](docs/privacy-and-deletion.md)
@@ -162,7 +163,7 @@ The decisions that were hard, and why they went the way they did. Depth lives in
 | **Functions** | Node.js · TypeScript (Cloud Functions v2) |
 | **Web** | The full Flutter web app on Firebase Hosting (WebAssembly renderer), plus a lightweight JS SDK + anonymous-auth claim page for friends without the app |
 | **iOS** | Swift Package Manager (no CocoaPods); WidgetKit home-screen widgets (Pip in SwiftUI `Canvas`); Universal Links + deep links |
-| **Design** | A token-driven theme — Fraunces + DM Sans, **System / Light / Dark** that follows the phone, seven accent themes, and an optional gradient atmosphere; the **Pip** mascot as an animated `CustomPainter`; a hand-rolled soft-body bubble simulation |
+| **Design** | A token-driven theme — Fraunces + Hanken Grotesk, **System / Light / Dark** that follows the phone, seven accent themes, and an optional gradient atmosphere; the **Pip** mascot as an animated `CustomPainter`; a hand-rolled soft-body bubble simulation |
 
 ## Architecture
 
@@ -185,16 +186,15 @@ app, and the data source behind the native iOS extension.
 
 ## Status
 
-Build **`1.0.0+79`** ([CHANGELOG](CHANGELOG.md)) — on **TestFlight** and being resubmitted
-for **App Store review**, in **closed testing on Google Play**, with the full web app live
-at [bupples.web.app/app](https://bupples.web.app/app).
+Build **`1.1.0+110`** ([CHANGELOG](CHANGELOG.md)) — **live on the App Store and Google Play**,
+with the full web app running in the browser at [bupples.web.app/app](https://bupples.web.app/app).
 
 | Surface | Status |
 |---------|--------|
-| App Store (iPhone) | 🚦 Resubmitting for review (`1.0.0+79`) |
-| TestFlight (iPhone) | ✅ Live (`1.0.0+79`) |
+| App Store (iPhone) | ✅ Live (`1.1.0+110`) |
+| TestFlight (iPhone) | ✅ Live (`1.1.0+110`) |
 | Web app | ✅ Live at [bupples.web.app/app](https://bupples.web.app/app) |
-| Google Play (Android) | 🧪 Closed testing |
+| Google Play (Android) | ✅ Live (`1.1.0+110`) |
 | iOS home-screen widgets | ✅ Shipping |
 
 ---
