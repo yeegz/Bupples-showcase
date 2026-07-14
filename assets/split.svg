@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1800 700" width="900" height="350" role="img" aria-label="One Bupples hangout in three steps: the bill, the cent-exact split of it across four people, and the resulting direct balances in mint and coral.">
+  <title>One hangout, split to the sen</title>
+  <defs>
+    <linearGradient id="sp-plate" x1="0" y1="0" x2="0.8" y2="1">
+      <stop offset="0" stop-color="#0C1411"/>
+      <stop offset="0.55" stop-color="#080D0B"/>
+      <stop offset="1" stop-color="#050807"/>
+    </linearGradient>
+    <linearGradient id="sp-card" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#1A201D"/>
+      <stop offset="1" stop-color="#0E1512"/>
+    </linearGradient>
+    <linearGradient id="sp-rimTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.13"/>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.045"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.025"/>
+    </linearGradient>
+    <radialGradient id="sp-mintHaze" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#46E0B0" stop-opacity="0.09"/>
+      <stop offset="1" stop-color="#46E0B0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="sp-lift" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+
+  <rect x="0" y="0" width="1800" height="700" rx="32" fill="url(#sp-plate)"/>
+  <ellipse cx="1500" cy="60" rx="520" ry="340" fill="url(#sp-mintHaze)"/>
+
+  <!-- ═══ 1. THE BILL ═══════════════════════════════════════════════════════
+       A bill total is not a signed balance, so it takes no direction arrow and
+       no money hue: it renders in the neutral primary ink. Mint and coral are
+       reserved for a direction you can act on. -->
+  <g filter="url(#sp-lift)">
+    <rect x="52" y="52" width="520" height="596" rx="28" fill="url(#sp-card)" stroke="#2A312E"/>
+    <rect x="52.5" y="52.5" width="519" height="595" rx="27.5" fill="none" stroke="url(#sp-rimTop)"/>
+  </g>
+  <text x="92" y="112" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" letter-spacing="3.4" fill="#A8A39A">HANGOUT</text>
+  <text x="92" y="168" font-family="Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Times New Roman', serif" font-size="44" fill="#F4EFE7">Village Park</text>
+
+  <g font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="20" text-anchor="middle">
+    <circle cx="114" cy="228" r="22" fill="#7FA9AF" fill-opacity="0.16" stroke="#7FA9AF" stroke-width="2"/>
+    <text x="114" y="235" fill="#7FA9AF">A</text>
+    <circle cx="174" cy="228" r="22" fill="#B593AC" fill-opacity="0.16" stroke="#B593AC" stroke-width="2"/>
+    <text x="174" y="235" fill="#B593AC">S</text>
+    <circle cx="234" cy="228" r="22" fill="#A8B37A" fill-opacity="0.16" stroke="#A8B37A" stroke-width="2"/>
+    <text x="234" y="235" fill="#A8B37A">H</text>
+    <circle cx="294" cy="228" r="22" fill="#7FB38C" fill-opacity="0.16" stroke="#7FB38C" stroke-width="2"/>
+    <text x="294" y="235" fill="#7FB38C">Y</text>
+  </g>
+  <text x="336" y="236" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="24" fill="#A8A39A">4 people</text>
+
+  <g font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="26" fill="#C6C0B6">
+    <text x="92" y="316">Nasi lemak ayam &#215; 2</text>
+    <text x="92" y="372">Roti canai &#215; 3</text>
+    <text x="92" y="428">Teh tarik &#215; 4</text>
+  </g>
+  <g font-family="'JetBrains Mono', 'SF Mono', SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="30" fill="#C6C0B6" text-anchor="end">
+    <text x="532" y="316">RM27.00</text>
+    <text x="532" y="372">RM10.50</text>
+    <text x="532" y="428">RM14.00</text>
+  </g>
+
+  <rect x="92" y="478" width="440" height="1.5" fill="#2A312E"/>
+  <text x="92" y="540" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="26" fill="#F4EFE7">Total</text>
+  <text x="532" y="540" font-family="'JetBrains Mono', 'SF Mono', SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="34" fill="#F4EFE7" text-anchor="end">RM51.50</text>
+  <text x="92" y="596" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" fill="#7B8178">One RM ledger &#183; 5,150 sen</text>
+
+  <!-- ═══ 2. THE SPLIT ══════════════════════════════════════════════════════
+       Money is integer sen end to end, so a four-way split of 5,150 sen is
+       1,287 remainder 2, and the two odd sen are dealt to two people rather
+       than rounded away. Shares are magnitudes, so they stay neutral too. -->
+  <g filter="url(#sp-lift)">
+    <rect x="640" y="52" width="520" height="596" rx="28" fill="url(#sp-card)" stroke="#2A312E"/>
+    <rect x="640.5" y="52.5" width="519" height="595" rx="27.5" fill="none" stroke="url(#sp-rimTop)"/>
+  </g>
+  <text x="680" y="112" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" letter-spacing="3.4" fill="#A8A39A">SPLIT</text>
+  <text x="680" y="168" font-family="Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Times New Roman', serif" font-size="44" fill="#F4EFE7">Split four ways</text>
+
+  <g font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" text-anchor="middle">
+    <circle cx="697" cy="231" r="17" fill="#7FA9AF" fill-opacity="0.16" stroke="#7FA9AF" stroke-width="1.8"/>
+    <text x="697" y="237" fill="#7FA9AF">A</text>
+    <circle cx="697" cy="297" r="17" fill="#B593AC" fill-opacity="0.16" stroke="#B593AC" stroke-width="1.8"/>
+    <text x="697" y="303" fill="#B593AC">S</text>
+    <circle cx="697" cy="363" r="17" fill="#A8B37A" fill-opacity="0.16" stroke="#A8B37A" stroke-width="1.8"/>
+    <text x="697" y="369" fill="#A8B37A">H</text>
+    <circle cx="697" cy="429" r="17" fill="#7FB38C" fill-opacity="0.16" stroke="#7FB38C" stroke-width="1.8"/>
+    <text x="697" y="435" fill="#7FB38C">Y</text>
+  </g>
+  <g font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="26" fill="#C6C0B6">
+    <text x="726" y="240">Aiman</text>
+    <text x="726" y="306">Sofia</text>
+    <text x="726" y="372">Hafiz</text>
+    <text x="726" y="438" fill="#F4EFE7">You</text>
+  </g>
+  <g font-family="'JetBrains Mono', 'SF Mono', SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="30" fill="#C6C0B6" text-anchor="end">
+    <text x="1120" y="240">RM12.88</text>
+    <text x="1120" y="306">RM12.87</text>
+    <text x="1120" y="372">RM12.88</text>
+    <text x="1120" y="438" fill="#F4EFE7">RM12.87</text>
+  </g>
+
+  <rect x="680" y="478" width="440" height="1.5" fill="#2A312E"/>
+  <text x="680" y="540" font-family="'JetBrains Mono', 'SF Mono', SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="23" fill="#A8A39A">5,150 &#247; 4 = 1,287 r2</text>
+  <text x="680" y="596" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" fill="#7B8178">the two odd sen are dealt, never rounded away</text>
+
+  <!-- ═══ 3. THE BALANCES ═══════════════════════════════════════════════════
+       Mint = owed to you, coral = you owe, and the direction is never colour
+       alone: an incoming arrow points down-left, an outgoing arrow up-right,
+       and the figure itself is a magnitude with no sign prefix. These are
+       DIRECT settlements. The simplifying variant can reroute a real pair
+       debt through a third person and hide or flip it. -->
+  <g filter="url(#sp-lift)">
+    <rect x="1228" y="52" width="520" height="596" rx="28" fill="url(#sp-card)" stroke="#2A312E"/>
+    <rect x="1228.5" y="52.5" width="519" height="595" rx="27.5" fill="none" stroke="url(#sp-rimTop)"/>
+  </g>
+  <text x="1268" y="112" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" letter-spacing="3.4" fill="#A8A39A">BALANCES</text>
+  <text x="1268" y="168" font-family="Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Times New Roman', serif" font-size="44" fill="#F4EFE7">Your balances</text>
+
+  <g font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="16" text-anchor="middle">
+    <circle cx="1285" cy="231" r="17" fill="#7FA9AF" fill-opacity="0.16" stroke="#7FA9AF" stroke-width="1.8"/>
+    <text x="1285" y="237" fill="#7FA9AF">A</text>
+    <circle cx="1285" cy="297" r="17" fill="#B593AC" fill-opacity="0.16" stroke="#B593AC" stroke-width="1.8"/>
+    <text x="1285" y="303" fill="#B593AC">S</text>
+    <circle cx="1285" cy="363" r="17" fill="#8FA6C4" fill-opacity="0.16" stroke="#8FA6C4" stroke-width="1.8"/>
+    <text x="1285" y="369" fill="#8FA6C4">F</text>
+    <circle cx="1285" cy="429" r="17" fill="#A8B37A" fill-opacity="0.16" stroke="#A8B37A" stroke-width="1.8"/>
+    <text x="1285" y="435" fill="#A8B37A">H</text>
+  </g>
+  <g font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="26" fill="#C6C0B6">
+    <text x="1314" y="240">Aiman owes you</text>
+    <text x="1314" y="306">Sofia owes you</text>
+    <text x="1314" y="372">You owe Farah</text>
+    <text x="1314" y="438">Hafiz</text>
+  </g>
+
+  <!-- incoming: down-left -->
+  <g transform="translate(1548 218) scale(0.9167)" fill="none" stroke="#46E0B0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 6 L6 18"/><path d="M6 11 L6 18 L13 18"/>
+  </g>
+  <g transform="translate(1548 284) scale(0.9167)" fill="none" stroke="#46E0B0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 6 L6 18"/><path d="M6 11 L6 18 L13 18"/>
+  </g>
+  <!-- outgoing: up-right -->
+  <g transform="translate(1548 350) scale(0.9167)" fill="none" stroke="#FF7D7D" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M6 18 L18 6"/><path d="M11 6 L18 6 L18 13"/>
+  </g>
+
+  <g font-family="'JetBrains Mono', 'SF Mono', SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="30" text-anchor="end">
+    <text x="1708" y="240" fill="#46E0B0">RM12.88</text>
+    <text x="1708" y="306" fill="#46E0B0">RM12.87</text>
+    <text x="1708" y="372" fill="#FF7D7D">RM8.20</text>
+  </g>
+  <text x="1708" y="438" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="26" fill="#7B8178" text-anchor="end">All square</text>
+
+  <rect x="1268" y="478" width="440" height="1.5" fill="#2A312E"/>
+  <text x="1268" y="540" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" letter-spacing="3.4" fill="#A8A39A">NET</text>
+  <g transform="translate(1496 510) scale(1.25)" fill="none" stroke="#46E0B0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M18 6 L6 18"/><path d="M6 11 L6 18 L13 18"/>
+  </g>
+  <text x="1708" y="540" font-family="'JetBrains Mono', 'SF Mono', SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="40" fill="#46E0B0" text-anchor="end">RM17.55</text>
+  <text x="1268" y="596" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="21" fill="#7B8178">Direct settlements &#183; never simplified</text>
+</svg>

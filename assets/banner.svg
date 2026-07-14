@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1720 520" width="860" height="260" role="img" aria-label="Bupples: split the bill with your people, down to the sen. A Flutter and Firebase expense-splitting app.">
+  <title>Bupples</title>
+  <defs>
+    <linearGradient id="bp-plate" x1="0" y1="0" x2="0.75" y2="1">
+      <stop offset="0" stop-color="#0C1411"/>
+      <stop offset="0.55" stop-color="#080D0B"/>
+      <stop offset="1" stop-color="#050807"/>
+    </linearGradient>
+    <linearGradient id="bp-glass" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#1A201D"/>
+      <stop offset="1" stop-color="#0E1512"/>
+    </linearGradient>
+    <linearGradient id="bp-rimTop" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.14"/>
+      <stop offset="0.5" stop-color="#FFFFFF" stop-opacity="0.05"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.03"/>
+    </linearGradient>
+    <radialGradient id="bp-pipGlow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#7FB38C" stop-opacity="0.20"/>
+      <stop offset="0.55" stop-color="#7FB38C" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#7FB38C" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="bp-mintHaze" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#46E0B0" stop-opacity="0.10"/>
+      <stop offset="1" stop-color="#46E0B0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="bp-cardLift" x="-25%" y="-25%" width="150%" height="150%">
+      <feDropShadow dx="0" dy="16" stdDeviation="22" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <!-- Dark-first plate: opaque, so the banner carries its own ground on light and dark READMEs alike. -->
+  <rect x="0" y="0" width="1720" height="520" rx="36" fill="url(#bp-plate)"/>
+  <ellipse cx="1360" cy="120" rx="520" ry="360" fill="url(#bp-mintHaze)"/>
+  <circle cx="186" cy="110" r="215" fill="url(#bp-pipGlow)"/>
+
+  <!-- ── Pip, the mark ──────────────────────────────────────────────────────
+       Geometry follows lib/core/widgets/pip_geometry.dart, which is the single
+       source of truth in the app: a 100-unit space, left bubble (40,44), right
+       bubble (60,48), shared radius 22, stroke 4. The asymmetry is deliberate.
+       Eyes only, no mouth and no brows. The app deforms the outline outward
+       near an eye so the line never clips it; at the neutral mood drawn here
+       that deformation is inactive, so these arcs are true circles. -->
+  <g transform="translate(65.6 0) scale(2.4)">
+    <g fill="none" stroke="#7FB38C" stroke-width="4" stroke-linecap="round">
+      <circle cx="40" cy="44" r="22"/>
+      <circle cx="60" cy="48" r="22"/>
+    </g>
+    <g fill="#F4FFFB">
+      <circle cx="46" cy="47" r="3.6"/>
+      <circle cx="54" cy="47" r="3.6"/>
+    </g>
+  </g>
+
+  <text x="104" y="298" font-family="Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Times New Roman', serif" font-size="132" letter-spacing="-1.5" fill="#F4EFE7">Bupples</text>
+  <text x="107" y="364" font-family="-apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="34" fill="#A8A39A">Split the bill with your people, down to the sen.</text>
+
+  <g font-family="-apple-system, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif" font-size="24" fill="#C6C0B6">
+    <rect x="104" y="404" width="140" height="54" rx="27" fill="#FFFFFF" fill-opacity="0.05" stroke="#2A312E"/>
+    <text x="174" y="439" text-anchor="middle">Flutter</text>
+    <rect x="256" y="404" width="156" height="54" rx="27" fill="#FFFFFF" fill-opacity="0.05" stroke="#2A312E"/>
+    <text x="334" y="439" text-anchor="middle">Firebase</text>
+    <rect x="424" y="404" width="214" height="54" rx="27" fill="#FFFFFF" fill-opacity="0.05" stroke="#2A312E"/>
+    <text x="531" y="439" text-anchor="middle">Native widgets</text>
+    <rect x="650" y="404" width="180" height="54" rx="27" fill="#FFFFFF" fill-opacity="0.05" stroke="#2A312E"/>
+    <text x="740" y="439" text-anchor="middle">Integer sen</text>
+  </g>
+
+  <!-- ── The net-balance card ───────────────────────────────────────────────
+       The money law, in miniature: JetBrains Mono figures, two decimals, no
+       sign prefix (the arrow states direction, the figure is a magnitude),
+       mint = owed to you, coral = you owe. The accent green above never
+       touches a figure. RM128.40 is the app's own canonical demo figure. -->
+  <g transform="rotate(-3 1360 260)" filter="url(#bp-cardLift)">
+    <rect x="1140" y="90" width="440" height="340" rx="30" fill="url(#bp-glass)" stroke="#2A312E"/>
+    <rect x="1140.5" y="90.5" width="439" height="339" rx="29.5" fill="none" stroke="url(#bp-rimTop)"/>
+
+    <text x="1180" y="160" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="22" letter-spacing="3.4" fill="#A8A39A">NET</text>
+
+    <g transform="translate(1180 193) scale(1.4167)" fill="none" stroke="#46E0B0" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 6 L6 18"/>
+      <path d="M6 11 L6 18 L13 18"/>
+    </g>
+    <text x="1228" y="232" font-family="'JetBrains Mono', 'SF Mono', SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="60" fill="#46E0B0">RM128.40</text>
+    <text x="1180" y="272" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="24" fill="#A8A39A">owed to you across 3 hangouts</text>
+
+    <rect x="1180" y="308" width="360" height="1.5" fill="#2A312E"/>
+
+    <g transform="translate(1180 338) scale(1.0833)" fill="none" stroke="#FF7D7D" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M6 18 L18 6"/>
+      <path d="M11 6 L18 6 L18 13"/>
+    </g>
+    <text x="1214" y="364" font-family="'JetBrains Mono', 'SF Mono', SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="34" fill="#FF7D7D">RM18.75</text>
+    <text x="1373" y="364" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="24" fill="#A8A39A">you owe Sofia</text>
+  </g>
+</svg>
