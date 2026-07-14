@@ -227,8 +227,9 @@ Build **1.1.0 (112)**, shipping on the App Store and Google Play.
 - ✅ Privacy: owner-only Firestore rules pinned by a 294-test suite, full account deletion, and no ad
   SDKs and no IDFA, so the app never shows a tracking prompt. Firebase Analytics and Crashlytics are the
   only telemetry, and neither feeds an advertising identifier.
-- ✅ CI runs on every push and pull request: `flutter analyze` plus the full Flutter suite, the Firestore
-  rules against the emulator, and a TypeScript compile of the Cloud Functions.
+- ✅ CI is green on every push and pull request, across three jobs: `flutter analyze` plus the full
+  Flutter suite, the Firestore rules against the emulator, and a TypeScript compile of the Cloud
+  Functions.
 - 🚧 App Check is **wired but not enforced**. It is plumbed through every callable behind a single
   constant, so enabling it is a one-line change that cannot miss a function, but the constant is off
   while `firebase_app_check` fails to compile on AGP 9 / Kotlin 2.3. Enforcing today would reject every
