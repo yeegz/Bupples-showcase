@@ -4,7 +4,7 @@
 
 Bupples helps friends split dinners, trips and everyday costs. Create a hangout or a standalone split, scan a receipt, choose who had each item, and keep track of what remains to settle.
 
-[App Store](https://apps.apple.com/my/app/bupples/id6777620291) · [Google Play](https://play.google.com/store/apps/details?id=com.bupples.bupples) · [Product site](https://bupples.web.app) · [Engineering case study](https://yeegz.github.io/work/bupples/)
+[App Store](https://apps.apple.com/my/app/bupples/id6777620291) · [Google Play](https://play.google.com/store/apps/details?id=com.bupples.bupples) · [Product site](https://bupples.web.app) · [Engineering case study](https://yousofselim.com/work/bupples/)
 
 **Live on iOS and Android.** This is the public product and engineering showcase. Application source is private.
 
@@ -41,13 +41,13 @@ The central engineering challenge is trust: every split must preserve the total,
 
 ## Release evidence
 
-The [case study](https://yeegz.github.io/work/bupples/) connects product decisions to implementation and dated release verification. Its 5 September 2026 snapshot for build 184 records **6,048 Flutter tests** and **91 native fixtures** for the verified build. These are development checks for that snapshot, not adoption metrics or a claim about every later build.
+The [case study](https://yousofselim.com/work/bupples/) connects product decisions to implementation and dated release verification. Its 5 September 2026 snapshot for build 184 records **6,048 Flutter tests** and **91 native fixtures** for the verified build. These are development checks for that snapshot, not adoption metrics or a claim about every later build.
 
 For current platform availability, use the store links above. The product website provides the landing page and supported browser claim flows.
 
 ## Engineering reading
 
-- [Current case study: money, privacy, receipts and release](https://yeegz.github.io/work/bupples/)
+- [Current case study: money, privacy, receipts and release](https://yousofselim.com/work/bupples/)
 - [Architecture snapshot — build 1.1.0+112](docs/ARCHITECTURE.md)
 - [Receipt splitting](docs/receipt-splitting.md)
 - [Privacy and deletion](docs/privacy-and-deletion.md)
@@ -55,4 +55,4 @@ For current platform availability, use the store links above. The product websit
 
 The repository’s detailed engineering notes retain their documented build context. The case study and current screenshots are the starting point for the September product presentation.
 
-[More work by Yousof](https://yeegz.github.io) · [Discuss a project](mailto:yousofselim2@gmail.com)
+[More work by Yousof](https://yousofselim.com) · [Discuss a project](mailto:yousofselim2@gmail.com)
