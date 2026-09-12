@@ -2,9 +2,13 @@
 
 All notable changes to **Bupples**, newest first. ← [Back to the README](README.md)
 
-Bupples is **live on the App Store and Google Play** at marketing version `1.1.0`. The
-**build number** (`1.1.0+N`) advances each release. Engineering detail lives in
-[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+## September 2026 showcase refresh
+
+Bupples is live on the App Store and Google Play. The public showcase now uses the founder’s September device captures and links to the updated [engineering case study](https://yeegz.github.io/work/bupples/). The store listings carry current availability; the entries below preserve the earlier 1.1.0 release history.
+
+## Earlier release history
+
+The following notes describe the `1.1.0+N` build series. Its architecture snapshot is in [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
 
 ## The arc so far
 
