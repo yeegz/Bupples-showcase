@@ -6,15 +6,20 @@ Bupples helps friends split dinners, trips and everyday costs. Create a hangout 
 
 [App Store](https://apps.apple.com/my/app/bupples/id6777620291) · [Google Play](https://play.google.com/store/apps/details?id=com.bupples.bupples) · [Product site](https://bupples.web.app) · [Engineering case study](https://yousofselim.com/work/bupples/)
 
-**Live on iOS and Android.** This is the public product and engineering showcase. Application source is private.
+**Live on iOS and Android.** Version 1.5.0 (build 204), a full redesign, was submitted to App Store and Google Play review on 9 November 2026. This is the public product and engineering showcase. Application source is private.
 
 <p align="center">
-  <img src="media/current/current-profile.webp" width="29%" alt="Current Bupples profile with a personalised bubble and shared-expense statistics">
-  <img src="media/current/current-settings.webp" width="29%" alt="Current Bupples settings for appearance, personalisation and splitting preferences">
-  <img src="media/current/current-accent.webp" width="29%" alt="Current Bupples accent picker: interface colour changes while payment colours retain their meaning">
+  <img src="media/store-1.5/header.webp" width="100%" alt="Bupples: split it, stay friends. A circle of friends' bubbles showing who owes what">
 </p>
 
-<sub>Current device screenshots supplied by the founder, September 2026. [View the capture set](media/README.md).</sub>
+<p align="center">
+  <img src="media/store-1.5/01-split-it-stay-friends.webp" width="24%" alt="Home: a stack of hangouts with balances per friend">
+  <img src="media/store-1.5/03-scan-it-tap-what-you-had.webp" width="24%" alt="Scan a receipt, then each person taps what they had">
+  <img src="media/store-1.5/05-any-currency-any-trip.webp" width="24%" alt="Every currency kept in its own ledger, main currency first">
+  <img src="media/store-1.5/06-ask-pip-who-still-owes.webp" width="24%" alt="Ask Pip who still owes, with cards that take you to the right screen">
+</p>
+
+<sub>Store screenshots for 1.5.0, captured from the app with a demo account and illustrated cast. [All seven](media/store-1.5/).</sub>
 
 ## What the product brings together
 
@@ -23,6 +28,8 @@ Bupples helps friends split dinners, trips and everyday costs. Create a hangout 
 - **Private flows:** participant-scoped expenses and splits, with access enforced at the backend.
 - **Personal expression:** custom profiles, accent colours and Pip Pro features, while financial colours keep their meaning.
 - **Native integration:** iOS WidgetKit / SwiftUI and Android RemoteViews alongside the Flutter app.
+- **Finality you can trust (1.5):** five minutes after an expense or settlement is recorded, the server locks it, so nobody can quietly cancel, reject or delete a receipt later. Forgiving a debt stays open.
+- **Pip, the in-app guide (1.5):** answers questions about your balances and replies with cards that open the exact screen you need.
 
 ## My contribution
 
@@ -53,6 +60,6 @@ For current platform availability, use the store links above. The product websit
 - [Privacy and deletion](docs/privacy-and-deletion.md)
 - [Release history](CHANGELOG.md)
 
-The repository’s detailed engineering notes retain their documented build context. The case study and current screenshots are the starting point for the September product presentation.
+The repository’s detailed engineering notes retain their documented build context. Earlier device captures from September 2026 remain in [`media/current/`](media/current/).
 
 [More work by Yousof](https://yousofselim.com) · [Discuss a project](mailto:yousofselim2@gmail.com)

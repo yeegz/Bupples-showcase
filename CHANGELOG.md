@@ -2,6 +2,16 @@
 
 All notable changes to **Bupples**, newest first. ← [Back to the README](README.md)
 
+## 1.5.0 (204), November 2026
+
+Submitted to App Store and Google Play review on 9 November 2026.
+
+- **Full redesign.** Home is a stack of hangout cards that unfolds as you scroll; deep OLED dark across every screen.
+- **Finality locks.** Expenses, settlements and receipts lock on the server five minutes after they are recorded; forgiving a debt is excluded, so generosity is never blocked.
+- **Pip gets smarter.** Pip now knows the whole app, explains navigation, and answers with cards that take you straight to the right place.
+- **Pip Pro and the wardrobe** redesigned, with a clearer showcase of what Pro adds.
+- **Store presence.** New screenshots, header and listing text in 20 App Store and 18 Google Play languages.
+
 ## September 2026 showcase refresh
 
 Bupples is live on the App Store and Google Play. The public showcase now uses the founder’s September device captures and links to the updated [engineering case study](https://yeegz.github.io/work/bupples/). The store listings carry current availability; the entries below preserve the earlier 1.1.0 release history.
