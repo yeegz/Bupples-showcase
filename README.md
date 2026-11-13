@@ -6,7 +6,7 @@ Bupples helps friends split dinners, trips and everyday costs. Create a hangout 
 
 [App Store](https://apps.apple.com/my/app/bupples/id6777620291) · [Google Play](https://play.google.com/store/apps/details?id=com.bupples.bupples) · [Product site](https://bupples.web.app) · [Engineering case study](https://yousofselim.com/work/bupples/)
 
-**Live on iOS and Android.** Version 1.5.0 (build 204), a full redesign, was submitted to App Store and Google Play review on 9 November 2026. This is the public product and engineering showcase. Application source is private.
+**Live on iOS and Android.** Version 1.5.0, a full redesign, has been live on the App Store and Google Play since 11 November 2026. This is the public product and engineering showcase. Application source is private.
 
 <p align="center">
   <img src="media/store-1.5/header.webp" width="100%" alt="Bupples: split it, stay friends. A circle of friends' bubbles showing who owes what">
